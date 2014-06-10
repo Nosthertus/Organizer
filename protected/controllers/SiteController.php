@@ -143,8 +143,7 @@ class SiteController extends Controller
 	{
 		if(!Yii::app()->user->isGuest)
 		{
-			$this->layout = 'column3';
-			$this->render('Chat');
+			$this->renderPartial('Chat');
 		}
 
 		else
