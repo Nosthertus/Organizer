@@ -135,4 +135,19 @@ class SiteController extends Controller
 		
 		$this->render('register', array('model'=>$model));
 	}
+
+	/*
+	* Displays the chat page
+	*/
+	public function actionChat()
+	{
+		if(!Yii::app()->user->isGuest)
+		{
+			$this->layout = 'column3';
+			$this->render('Chat');
+		}
+
+		else
+			throw new CHttpException(401, 'You are not Authorized');
+	}
 }
