@@ -28,7 +28,7 @@
 
 	<div class="navbar navbar-inverse navbar-fixed-bottom">
 		<div class="navbar-header">
-			<p class="navbar-text"><?php echo Yii::app()->user->name; ?></p>
+			<p class="navbar-text" id="Username"><?php echo Yii::app()->user->name; ?></p>
 			<p class="navbar-text">[Icons and options HERE!]</p>
 		</div>
 		<?php echo CHtml::beginForm(null, 'post', array('id'=>'messageForm')); ?>
@@ -48,18 +48,20 @@
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/JQuery.js"></script>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/offcanvas.js"></script>
+	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/socket.io.js"></script>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/dist/js/bootstrap.min.js"></script>
-	<script src="/socket.io/socket.io.js"></script>
 	<script type="text/javascript">
+		//Set host connection parameters.
 		var socketio = io.connect(window.location.hostname+':3000');
 		
 		window.onload = init();
 
+		//When recieves a message from server.
 		socketio.on('messageToClient', function(data)
 		{
 			var chatLog = document.getElementById('chatBox');
 
-			chatLog.innerHTML = chatLog.innerHTML + '<div><pre>' + data['message'] + '</pre></div>';
+			chatLog.innerHTML = chatLog.innerHTML + '<div><pre>' + '<b>' + data['username'] + ':</b><br>' +urlify(data['message']) + '</pre></div>';
 			chatLog.scrollTop = chatLog.scrollHeight;
 		});
 
@@ -70,6 +72,7 @@
 			messageForm.onsubmit = send;
 		}
 
+		//Send the message to server.
 		function send()
 		{
 			var message = document.getElementById('Message');
@@ -78,12 +81,23 @@
 			{
 				socketio.emit('messageToServer',
 				{
-					message: message.value
+					message: message.value,
+					username: "<?php echo Yii::app()->user->name; ?>"
 				});
-				
+
 				message.value = '';
 			}
 			return false;
+		}
+
+		function urlify(text) 
+		{
+			var urlRegex = /(https?:\/\/[^\s]+)/g;
+			
+			return text.replace(urlRegex, function(url)
+			{
+				return '<a href="' + url + '" target="_blank">' + url + '</a>';
+			});
 		}
 	</script>
 </body>

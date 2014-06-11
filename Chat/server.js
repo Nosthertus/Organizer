@@ -26,17 +26,19 @@ var server = http.createServer(function(request, response)
 
 server.listen(port);
 var io = io.listen(server);
-io.set('log', 5);
+io.set('log', 0);
 
 var socket = io.sockets.on('connection', function(socket)
 {
 	socket.on('messageToServer', function(data)
 	{
 		var msg = escape_html(data['message']);
+		var user = escape_html(data['username'])
 
 		io.sockets.emit('messageToClient',
 		{
-			message: msg
+			message: msg,
+			username: user
 		});
 	});
 });
