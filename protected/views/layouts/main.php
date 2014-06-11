@@ -78,7 +78,7 @@
 			winPosX = 10,
 			winPosY = 10;
 
-		newwind = window.open("site/chat","NewPop",
+		newwind = window.open("<?php echo Yii::app()->request->baseUrl; ?>/site/chat","NewPop",
 			'fullscreen=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no');
 
 		newwind;

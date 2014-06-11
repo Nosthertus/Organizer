@@ -143,7 +143,7 @@ class SiteController extends Controller
 	{
 		if(!Yii::app()->user->isGuest)
 		{
-			$this->renderPartial('Chat');
+			$this->renderPartial('chat');
 		}
 
 		else

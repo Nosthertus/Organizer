@@ -1,3 +1,3 @@
 <div class="box">
-	<?php echo "string"; ?>
+	<?php echo $data->Name; ?>
 </div>
