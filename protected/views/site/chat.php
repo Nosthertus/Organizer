@@ -24,7 +24,8 @@
 			</div>
 		</div>
 	</div>
-	<div id="chatBox"></div>
+	<div id="chatBox">
+	</div>
 
 	<div class="navbar navbar-inverse navbar-fixed-bottom">
 		<div class="navbar-header">
@@ -48,7 +49,7 @@
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/JQuery.js"></script>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/offcanvas.js"></script>
-	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/socket.io.js"></script>
+	<script src="http://<?php echo Yii::app()->request->serverName; ?>:3000/socket.io/socket.io.js"></script>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 		//Set host connection parameters.
