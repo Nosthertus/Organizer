@@ -8,7 +8,7 @@
 		<br>
 
 		<?php if($data->Update_time != $data->Create_time):?>
-			<b>Updated:</b> <?php echo CHtml::encode(date('Y m/d, H:i', strtotime($data->Create_time))); ?>
+			<b>Updated:</b> <?php echo CHtml::encode(date('Y m/d, H:i', strtotime($data->Update_time))); ?>
 			<br>
 		<?php endif;?>
 		
