@@ -12,6 +12,9 @@
 
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/dist/css/offcanvas.css" />
+	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/JQuery.js"></script>
+	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/text.js"></script>
+	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/sound.js"></script>
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
@@ -27,14 +30,14 @@
 	<div id="chatBox">
 	</div>
 
-	<div class="navbar navbar-inverse navbar-fixed-bottom">
+	<div class="navbar navbar-inverse" id="chatMenu">
 		<div class="navbar-header">
 			<p class="navbar-text" id="Username"><?php echo Yii::app()->user->name; ?></p>
 			<p class="navbar-text">[Icons and options HERE!]</p>
 		</div>
 		<?php echo CHtml::beginForm(null, 'post', array('id'=>'messageForm')); ?>
 			<div class="form-group col-md-12">
-				<?php echo CHtml::textField('Message', '', array(
+				<?php echo CHtml::textArea('Message', '', array(
 					'class'=>'form-control',
 					'placeholder'=>'Message',
 					'autoComplete'=>'false',
@@ -47,7 +50,6 @@
 	<!-- Bootstrap core JavaScript
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/JQuery.js"></script>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/offcanvas.js"></script>
 	<script src="http://<?php echo Yii::app()->request->serverName; ?>:3000/socket.io/socket.io.js"></script>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/dist/js/bootstrap.min.js"></script>
@@ -63,7 +65,8 @@
 			var chatLog = document.getElementById('chatBox');
 
 			chatLog.innerHTML = chatLog.innerHTML + '<div><pre>' + '<b>' + data['username'] + ':</b><br>' +urlify(data['message']) + '</pre></div>';
-			chatLog.scrollTop = chatLog.scrollHeight;
+			sound();
+			window.scrollTo(0, document.body.scrollHeight);
 		});
 
 		function init()

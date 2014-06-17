@@ -66,3 +66,17 @@ div.box
 	border-width: 2px;
     margin-bottom: 8px;
 }
+#chatMenu{
+    display: inline-block;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 130px;
+    margin-bottom: 0;
+    /*background-color: blue;*/
+   border-radius: 0 0 0 0;
+}
+#chatBox{
+   overflow-y: scroll;
+   margin-bottom:140px;
+}
