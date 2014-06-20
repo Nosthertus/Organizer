@@ -14,6 +14,7 @@
 
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/dist/css/offcanvas.css" />
+	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/JQuery.js"></script>
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
@@ -69,7 +70,6 @@
 	<!-- Bootstrap core JavaScript
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<!-- <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/JQuery.js"></script> -->
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/offcanvas.js"></script>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript">

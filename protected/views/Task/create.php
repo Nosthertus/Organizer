@@ -4,8 +4,14 @@
 /* @var $form CActiveForm */
 ?>
 
-<h1><?php echo isset($_GET['project']) ? Project::model()->findByPk($_GET['project'])->Name : '' ?></h1>
+<?php Yii::app()->getClientScript()->registerScriptFile('../js/JQuery-ui.js'); ?>
+<?php Yii::app()->getClientScript()->registerScriptFile('../js/tags.js'); ?>
+<?php Yii::app()->getClientScript()->registerCssFile('../dist/css/jquery-ui.css'); ?>
 
+<h1><?php
+	if(!$model->isNewRecord)
+		// echo $model->project->Name;
+?></h1>
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -31,9 +37,7 @@
 		<?php 
 		if(isset($_GET['project']))
 		{
-			echo $form->hiddenField($model,'Project_id', array('class'=>'form-control', 'value'=>$_GET['project']));
-			echo CHtml::hiddenField('project', $_GET['project']);
-		}
+			echo $form->hiddenField($model,'Project_id', array('class'=>'form-control', 'value'=>$model->Project_id));		}
 
 		else
 		{
@@ -68,13 +72,7 @@
 
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'Tags'); ?>
-		<!-- <?php echo $form->textField($model,'Tags', array('class'=>'form-control')); ?> -->
-		<?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-			'model'=>$model,
-			'attribute'=>'Tags',
-			'sourceUrl'=>$this->createUrl('Task/SuggestTags'),
-			'htmlOptions'=>array('class'=>'form-control')
-		)); ?>
+		<?php echo $form->textField($model,'Tags', array('class'=>'form-control', 'id'=>'Tags')); ?>
 		<?php echo $form->error($model,'Tags'); ?>
 		<p class="help-block">please separate different tags with commas.</p>
 	</div>

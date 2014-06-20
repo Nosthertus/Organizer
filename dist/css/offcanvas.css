@@ -2,60 +2,60 @@
  * Style tweaks
  * --------------------------------------------------
  */
-html,
-body {
-  overflow-x: hidden; /* Prevent scroll on narrow devices */
+ html,
+ body {
+	overflow-x: hidden; /* Prevent scroll on narrow devices */
 }
 body {
-  padding-top: 70px;
+	padding-top: 70px;
 }
 footer {
-  padding: 30px 0;
+	padding: 30px 0;
 }
 
 /*
  * Off Canvas
  * --------------------------------------------------
  */
-@media screen and (max-width: 767px) {
-  .row-offcanvas {
-	position: relative;
-	-webkit-transition: all .25s ease-out;
-	   -moz-transition: all .25s ease-out;
-			transition: all .25s ease-out;
-  }
+ @media screen and (max-width: 767px) {
+	.row-offcanvas {
+	 position: relative;
+	 -webkit-transition: all .25s ease-out;
+	 -moz-transition: all .25s ease-out;
+	 transition: all .25s ease-out;
+ }
 
-  .row-offcanvas-right {
-	right: 0;
-  }
+ .row-offcanvas-right {
+	 right: 0;
+ }
 
-  .row-offcanvas-left {
-	left: 0;
-  }
+ .row-offcanvas-left {
+	 left: 0;
+ }
 
-  .row-offcanvas-right
-  .sidebar-offcanvas {
-	right: -50%; /* 6 columns */
-  }
+ .row-offcanvas-right
+ .sidebar-offcanvas {
+	 right: -50%; /* 6 columns */
+ }
 
-  .row-offcanvas-left
-  .sidebar-offcanvas {
-	left: -50%; /* 6 columns */
-  }
+ .row-offcanvas-left
+ .sidebar-offcanvas {
+	 left: -50%; /* 6 columns */
+ }
 
-  .row-offcanvas-right.active {
-	right: 50%; /* 6 columns */
-  }
+ .row-offcanvas-right.active {
+	 right: 50%; /* 6 columns */
+ }
 
-  .row-offcanvas-left.active {
-	left: 50%; /* 6 columns */
-  }
+ .row-offcanvas-left.active {
+	 left: 50%; /* 6 columns */
+ }
 
-  .sidebar-offcanvas {
-	position: absolute;
-	top: 0;
-	width: 50%; /* 6 columns */
-  }
+ .sidebar-offcanvas {
+	 position: absolute;
+	 top: 0;
+	 width: 50%; /* 6 columns */
+ }
 }
 div.box
 {
@@ -64,19 +64,27 @@ div.box
 	border-style: solid;
 	border-color: #393939;
 	border-width: 2px;
-    margin-bottom: 8px;
+	margin-bottom: 8px;
 }
-#chatMenu{
-    display: inline-block;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 130px;
-    margin-bottom: 0;
-    /*background-color: blue;*/
-   border-radius: 0 0 0 0;
+#chatMenu
+{
+	display: inline-block;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	height: 130px;
+	margin-bottom: 0;
+	/*background-color: blue;*/
+	border-radius: 0 0 0 0;
 }
-#chatBox{
-   overflow-y: scroll;
-   margin-bottom:140px;
+#chatBox
+{
+	overflow-y: scroll;
+	margin-bottom:140px;
+}
+.item-active
+{
+	color: #ffffff;
+	background-color: #222222;
+	border-color: #222222;
 }

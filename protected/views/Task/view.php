@@ -29,6 +29,12 @@
 			)
 		);
 	}
+	$this->menu[1] = array(
+		'label'=>'Back to project', 'url'=>array('/project/view', 'id'=>$model->Project_id),
+		'linkOptions'=>array(
+			'class'=>'list-group-item item-active'
+		)
+	);
 ?>
 
 <div class="panel panel-default">
@@ -57,8 +63,10 @@
 				?>
 			</div>
 			<div class="col-md-3">
-				<h2><?php echo $this->status($model->Status); ?></h2>
-				<span class="label label-default"><?php echo $model->Tags; ?></span>
+				<h2><?php echo $this->status($model->Status); ?></h2>	
+				<?php foreach($model->Tags as $data): ?>
+					<span class="label label-default"><?php echo $data; ?></span>
+				<?php endforeach; ?>
 			</div>
 		</div>
 	</div>

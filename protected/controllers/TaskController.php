@@ -65,16 +65,17 @@ Class TaskController extends Controller
 
 		if($model->Assigned != '')
 		{
-			// if(in_array(Yii::app()->user->name, $this->explodeByComma($model->Assigned)))
-				if($this->explodeByComma($model->Assigned))
-				{
-					if(in_array(Yii::app()->user->getId(), $this->explodeByComma($model->Assigned)))
-						$this->layout = 'column2';
-				}
-
-				if($model->Assigned == Yii::app()->user->getId())
+			if($this->explodeByComma($model->Assigned))
+			{
+				if(in_array(Yii::app()->user->getId(), $this->explodeByComma($model->Assigned)))
 					$this->layout = 'column2';
+			}
+
+			if($model->Assigned == Yii::app()->user->getId())
+				$this->layout = 'column2';
 		}
+
+		$model->Tags = explode(',', $model->Tags);
 
 		$this->render('view', array(
 			'model'=>$model, 
@@ -87,29 +88,22 @@ Class TaskController extends Controller
 	{
 		$model = $this->loadModel($id);
 
-		$_GET['project'] = $model->id;
-
 		if(isset($_POST['Task']))
 		{
-			if(isset($_POST['project']))
-			{
-				$array = $_POST['Task']['Assigned'];
+			$array = $_POST['Task']['Assigned'];
 
-				if(is_array($array))
-				{
-					$_POST['Task']['Assigned'] = implode(',', $array);
-				}
+			if(is_array($array))
+				$_POST['Task']['Assigned'] = implode(',', $array);
 
-				$model->attributes = $_POST['Task'];
-				$model->User_id = Yii::app()->user->getId();
-				$model->Update_time = date('YmdHi');
+			$model->attributes = $_POST['Task'];
+			$model->User_id = Yii::app()->user->getId();
+			$model->Update_time = date('YmdHi');
 
-				if($model->save())
-				{
-					$this->redirect(array('task/'.$model->id));
-				}
-			}
+			if($model->save())
+				$this->redirect(array('/task/view', 'id'=>$model->id));
 		}
+
+		$model->Assigned = explode(',', $model->Assigned);
 
 		$this->render('create', array(
 			'model'=>$model
@@ -136,6 +130,40 @@ Class TaskController extends Controller
 				$model->User_id = Yii::app()->user->getId();
 				$model->Create_time = date('YmdHi');
 				$model->Update_time = date('YmdHi');
+
+				$tags = $model->Tags;
+
+				$tags = explode(",", $tags);
+
+				foreach($tags as $data)
+				{
+					if($data != '')
+					{
+						$record = Tags::model()->find(array(
+							'select'=>'Name',
+							'condition'=>'Name=:Name',
+							'params'=>array(':Name'=>$data)
+						));
+
+						if($record === null)
+						{
+							$_model = new Tags;
+
+							$_model->Name = $data;
+							$_model->Frequency = 1;
+							$_model->save();
+						}
+
+						else
+						{
+							$_model = Tags::model()->findByAttributes(array('Name'=>$data));
+
+							$_model->Frequency = intval(Tags::model()->findByAttributes(array('Name'=>$data))->Frequency);
+							$_model->Frequency++;
+							$_model->save();
+						}
+					}
+				}
 
 				if($model->save())
 				{
@@ -183,8 +211,6 @@ Class TaskController extends Controller
 			if($tags!==array())
 				echo json_encode($tags);	
 		}
-		else
-			echo "string";
 	}
 
 	public function loadModel($id)
