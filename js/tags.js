@@ -20,6 +20,14 @@ function send(term){
 				}
 				event.preventDefault();
 			});
+			$( "#Tags" ).on( "autocompletefocus", function( event, ui ) {
+				var arr = $("#Tags").val().split(",");
+				if(arr.indexOf(ui.item.value)==(-1)){
+					arr [arr.length-1] = ui.item.value;
+					$("#Tags").val(arr);
+				}
+				event.preventDefault();
+			});
 		},
 		error: function (XMLHttpRequest, textStatus, errorThrown) {
 			console.log(XMLHttpRequest.responseText);

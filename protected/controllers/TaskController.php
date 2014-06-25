@@ -21,6 +21,20 @@ Class TaskController extends Controller
 		);
 	}
 
+	public function actionDelete($id)
+	{
+		if(isset($_POST['delete']))
+		{
+			$model = $this->loadModel($id);
+			
+			$redirect = $model->Project_id;
+
+			$model->delete();
+
+			echo $redirect;
+		}
+	}
+
 	public function actionIndex()
 	{
 		$dataProvider = new CActiveDataProvider('Task');
@@ -44,6 +58,12 @@ Class TaskController extends Controller
 		$dataProvider = new CActiveDataProvider('Comment', array(
 			'criteria'=>$criteria
 		));
+
+		if(isset($_POST['status']))
+		{
+			$model->Status = $_POST['status'];
+			$model->save();
+		}
 
 		if(isset($_POST['Comment']))
 		{
@@ -126,6 +146,7 @@ Class TaskController extends Controller
 				}
 
 				$model->attributes = $_POST['Task'];
+				$model->Tags = $this->removeSpace($model->Tags);
 				$model->Status = 1;
 				$model->User_id = Yii::app()->user->getId();
 				$model->Create_time = date('YmdHi');
@@ -159,11 +180,11 @@ Class TaskController extends Controller
 							$_model = Tags::model()->findByAttributes(array('Name'=>$data));
 
 							$_model->Frequency = intval(Tags::model()->findByAttributes(array('Name'=>$data))->Frequency);
-							$_model->Frequency++;
+							$_model->Frequency += 1;
 							$_model->save();
 						}
 					}
-				}
+				}		
 
 				if($model->save())
 				{
@@ -173,11 +194,53 @@ Class TaskController extends Controller
 
 			else
 			{
+				$array = $_POST['Task']['Assigned'];
+
+				if(is_array($array))
+				{
+					$_POST['Task']['Assigned'] = implode(',', $array);
+				}
+
 				$model->attributes = $_POST['Task'];
+				$model->Tags = $this->removeSpace($model->Tags);
 				$model->Status = 1;
-				$model->User_id = Yii::app()->user->getId;
+				$model->User_id = Yii::app()->user->getId();
 				$model->Create_time = date('YmdHi');
 				$model->Update_time = date('YmdHi');
+
+				$tags = $model->Tags;
+
+				$tags = explode(",", $tags);
+
+				foreach($tags as $data)
+				{
+					if($data != '')
+					{
+						$record = Tags::model()->find(array(
+							'select'=>'Name',
+							'condition'=>'Name=:Name',
+							'params'=>array(':Name'=>$data)
+						));
+
+						if($record === null)
+						{
+							$_model = new Tags;
+
+							$_model->Name = $data;
+							$_model->Frequency = 1;
+							$_model->save();
+						}
+
+						else
+						{
+							$_model = Tags::model()->findByAttributes(array('Name'=>$data));
+
+							$_model->Frequency = intval(Tags::model()->findByAttributes(array('Name'=>$data))->Frequency);
+							$_model->Frequency += 1;
+							$_model->save();
+						}
+					}
+				}
 
 				if($model->save())
 				{
@@ -189,23 +252,11 @@ Class TaskController extends Controller
 		$this->render('create', array('model'=>$model));
 	}
 
-	public function actionDelete($id)
-	{
-		// $model = $this->loadModel($id);
-
-		// $model->delete();
-
-		// Comment::model()->findAllByAttributes(array('Task_id'=>$model->id))->delete();
-
-		// if(!isset($_GET['ajax']))
-		// 	$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('/project'));
-		echo "string";
-	}
-
 	public function actionSuggestTags()
 	{
 		if(isset($_GET['term']) && ($keyword=trim($_GET['term']))!=='')
 		{
+			$keyword = $this->removeSpace($keyword);
 			$tags=Tags::model()->suggestTags($keyword);
 
 			if($tags!==array())

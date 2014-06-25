@@ -1,3 +1,8 @@
+
+<?php Yii::app()->getClientScript()->registerScriptFile('../js/JQuery-ui.js'); ?>
+<?php Yii::app()->getClientScript()->registerScriptFile('../js/status.js'); ?>
+
+<?php Yii::app()->getClientScript()->registerCssFile('../dist/css/jquery-ui.css'); ?>
 <?php
 	if($model->User_id == Yii::app()->user->getId())
 	{
@@ -10,10 +15,11 @@
 				)
 			),
 
-			array('label'=>'Delete Task', 'url'=>array('delete', 'id'=>$model->id),
+			array('label'=>'Delete Task', 'url'=>'#',
 				'linkOptions'=>array(
-					'confirm'=>'Are you sure you want to delete this Task?',
-					'class'=>'list-group-item'
+					'id'=>'delete',
+					'class'=>'list-group-item',
+					'data-value'=>$model->id
 				)
 			)
 		);
@@ -24,18 +30,41 @@
 		$this->menu = array(
 			array('label'=>'Set Status', 'url'=>'#',
 				'linkOptions'=>array(
-					'class'=>'list-group-item'
-				)
+					'class'=>'list-group-item',
+					'id'=>'Status'
+				)	
 			)
 		);
 	}
-	$this->menu[1] = array(
+	
+	array_push($this->menu, array(
 		'label'=>'Back to project', 'url'=>array('/project/view', 'id'=>$model->Project_id),
 		'linkOptions'=>array(
 			'class'=>'list-group-item item-active'
 		)
-	);
+	));
 ?>
+<!-- <div id="dialog" title="Basic dialog">
+  
+</div> -->
+
+<div id="dialogHC" style="display: none">
+     <div>
+     	<select id="selectStatus">
+  	<option value="1">Pending</option>
+  	<option value="2">Finished</option>
+  	<option value="3">In progress</option>
+  	<option value="4">Danger</option>
+  </select>
+  <button id="sendStatus">Send</button></div>
+  </div>  
+  <!-- Popover 2 hidden title -->
+  <div id="dialogHT" style="display: none">
+  	Select new Status
+  </div> 
+
+
+
 
 <div class="panel panel-default">
 	<div class="panel-heading">

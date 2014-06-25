@@ -24,6 +24,30 @@ class Controller extends CController
 	public function Init()
 	{
 		date_default_timezone_set('America/Caracas');
+
+		$model = Track::model()->find(array(
+			'select'=>'session',
+			'condition'=>'session=:session',
+			'params'=>array(':session'=>Yii::app()->session->sessionID)
+		));
+
+		if(!$model)
+		{
+			if(!Yii::app()->user->isGuest)
+			{
+				$_model = new Track;
+
+				$_model->session = yii::app()->session->sessionID;
+				$_model->date = date('Y-m-d');
+				$_model->time = date('H:i');
+				$_model->ip = $_SERVER['REMOTE_ADDR'];
+				$_model->save();
+				
+				echo 'Tracking';
+			}
+		}
+
+		parent::init();
 	}
 
 	public function status($status)
@@ -54,5 +78,59 @@ class Controller extends CController
 
 		else
 			return false;
+	}
+
+	public function removeSpace($that)
+	{
+		if(is_array($that))
+		{
+			$array = array();
+			foreach($that as $data)
+				$array[] = str_replace(' ', '', $data);
+
+			return $array;
+		}
+
+		else
+		{
+			$that = str_replace(' ', '', $that);
+
+			return $that;
+		}
+	}
+	
+	public function array_sort($array, $on, $order=SORT_ASC)
+	{
+		$new_array = array();
+		$sortable_array = array();
+
+		if (count($array) > 0) {
+			foreach ($array as $k => $v) {
+				if (is_array($v)) {
+					foreach ($v as $k2 => $v2) {
+						if ($k2 == $on) {
+							$sortable_array[$k] = $v2;
+						}
+					}
+				} else {
+					$sortable_array[$k] = $v;
+				}
+			}
+
+			switch ($order) {
+				case SORT_ASC:
+					asort($sortable_array);
+				break;
+				case SORT_DESC:
+					arsort($sortable_array);
+				break;
+			}
+
+			foreach ($sortable_array as $k => $v) {
+				$new_array[$k] = $array[$k];
+			}
+		}
+
+		return $new_array;
 	}
 }

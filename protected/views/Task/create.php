@@ -10,7 +10,7 @@
 
 <h1><?php
 	if(!$model->isNewRecord)
-		// echo $model->project->Name;
+		echo $model->project->Name;
 ?></h1>
 <div class="form">
 
@@ -37,7 +37,9 @@
 		<?php 
 		if(isset($_GET['project']))
 		{
-			echo $form->hiddenField($model,'Project_id', array('class'=>'form-control', 'value'=>$model->Project_id));		}
+			echo $form->hiddenField($model,'Project_id', array('class'=>'form-control', 'value'=>$model->Project_id ? $model->Project_id : $_GET['project']));
+			echo CHtml::hiddenField('project', $model->Project_id ? $model->Project_id : $_GET['project']);
+		}
 
 		else
 		{
