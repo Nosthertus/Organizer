@@ -33,7 +33,7 @@ class Controller extends CController
 
 		if(!$model)
 		{
-			if(!Yii::app()->user->isGuest)
+			if(Yii::app()->user->isGuest)
 			{
 				$_model = new Track;
 
