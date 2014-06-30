@@ -45,8 +45,21 @@ Class ProjectController extends Controller
 
 		$criteria = new CDbCriteria(array(
 			'order'=>'id desc',
-			'condition'=>'Project_id='.$id
+			'condition'=>'Project_id=:id',
+			'params'=>array(':id'=>$id)
 		));
+
+		if(isset($_GET['user']))
+			$criteria->addCondition('("," || Assigned || ",") LIKE "%,'.$_GET['user'].',%"');
+
+		if(isset($_GET['status']))
+			$criteria->addCondition('Status='.$_GET['status']);
+
+		// $criteria = new CDbCriteria(array(
+		// 	'order'=>'id desc',
+		// 	'condition'=>'Project_id=:id AND ("," || Assigned || ",") LIKE "%,:userid,%"',
+		// 	'params'=>array(':id'=>$id)
+		// ));
 
 		$dataProvider = new CActiveDataProvider('Task', array(
 			'criteria'=>$criteria

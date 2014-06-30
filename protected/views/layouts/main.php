@@ -29,14 +29,13 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#"><?php echo CHtml::encode(Yii::app()->name); ?></a>
+				<a class="navbar-brand" href="<?php echo Yii::app()->createUrl('site/index');?>"><?php echo CHtml::encode(Yii::app()->name); ?></a>
 			</div>
 			<div class="collapse navbar-collapse">
 				<?php
 				$this->widget('zii.widgets.CMenu', array(
 					'htmlOptions'=>array('class'=>'nav navbar-nav'),
 					'items'=>array(
-						array('label'=>'Home', 'url'=>array('/site/index')),
 						array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
 						array('label'=>'Contact', 'url'=>array('/site/contact')),
 						array('label'=>'Tags', 'url'=>array('/tags/index')),
@@ -60,7 +59,6 @@
 	</div>
 
 	<div class="container">
-
 		<?php echo $content; ?>
 
 	</div><!-- /.container -->

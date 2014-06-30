@@ -149,4 +149,15 @@ class SiteController extends Controller
 		else
 			throw new CHttpException(401, 'You are not Authorized');
 	}
+
+	/*
+	* Display a list of all Tags
+	*/
+	public function actionTags()
+	{
+		$model = Tags::model()->findAll(array('select'=>'Name'));
+		$this->render('Tags', array(
+			'model'=>$model
+		));
+	}
 }

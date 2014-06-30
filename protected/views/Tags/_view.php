@@ -25,6 +25,8 @@ switch ($data->Status)
 
 <div class="box row" style="border-color: <?php echo $status; ?>; background-color: <?php echo $background; ?>;">
 	<div class="col-md-4">
+		<b>Project:</b> <?php echo CHtml::encode(Project::model()->findByPk($data->Project_id) ? Project::model()->findByPk($data->Project_id)->Name : 'NULL') ; ?>
+		<br>
 		<b>Name:</b> <?php echo CHtml::encode($data->Name); ?>
 		<br>
 		<b>Tags:</b>
