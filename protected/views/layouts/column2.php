@@ -18,5 +18,15 @@
 		// $this->endWidget();
 	?>
 	</div>
+	
+	<?php if($this->isHome()): ?>
+	<div class="list-group">
+		<?php
+		$this->widget('recentTasks', array(
+			'maxTasks'=>10
+		));
+		?>
+	</div>
+	<?php endif; ?>
 </div>
 <?php $this->endContent(); ?>

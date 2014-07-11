@@ -81,6 +81,15 @@ class Task extends CActiveRecord
 		);
 	}
 
+	public function findRecentTasks($limit=10)
+	{
+		return $this->findAll(array(
+			'condition'=>'Status=1',
+			'order'=>'id DESC',
+			'limit'=>$limit
+		));
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 *

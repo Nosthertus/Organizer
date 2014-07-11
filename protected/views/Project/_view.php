@@ -34,7 +34,7 @@ switch ($data->Status)
 			echo 'No tags tagged.';
 
 		else
-			echo CHtml::encode($data->Tags);
+			echo CHtml::encode($this->removeSpace($data->Tags));
 		?>	
 	</div>
 	<div class="col-md-4">

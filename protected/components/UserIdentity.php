@@ -36,6 +36,7 @@ class UserIdentity extends CUserIdentity
 		{
 			$this->_id=$user->id;
 			$this->setState('username',$user->username);
+			$this->setState('id', $user->id);
 			$this->errorCode=self::ERROR_NONE;
 		}
 

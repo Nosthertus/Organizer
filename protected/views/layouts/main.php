@@ -48,9 +48,17 @@
 					'htmlOptions'=>array(
 						'class'=>'nav navbar-nav navbar-right',
 						),
+					'encodeLabel'=>false,
 					'items'=>array(
 						array('label'=>'Login', 'url'=>array('site/login'), 'visible'=>Yii::app()->user->isGuest),
-						array('label'=>'Logout '.Yii::app()->user->name, 'linkOptions'=>array('id'=>'user'), 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+						array('label'=>Yii::app()->user->name.' <span class="caret"></span>', 'url'=>'#', 'visible'=>!Yii::app()->user->isGuest,
+							'itemOptions'=>array('class'=>'dropdown'),
+							'submenuOptions'=>array('class'=>'dropdown-menu'),
+							'linkOptions'=>array('class'=>'dropdown-toggle', 'data-toggle'=>'dropdown'), 
+							'items'=>array(
+								array('label'=>'Logout', 'url'=>array('/site/logout'))
+							)
+						)
 					)
 				));
 				?>

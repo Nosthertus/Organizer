@@ -29,12 +29,13 @@ class Project extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Name', 'required'),
+			array('Name, Creator', 'required'),
+			array('Status', 'numerical', 'integerOnly'=>true),
 			array('Name', 'length', 'max'=>45),
 			array('Description', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, Name, Description', 'safe', 'on'=>'search'),
+			array('id, Name, Description, Creator, Status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,6 +60,8 @@ class Project extends CActiveRecord
 			'id' => 'ID',
 			'Name' => 'Name',
 			'Description' => 'Description',
+			'Creator' => 'Creator',
+			'Status' => 'Status',
 		);
 	}
 
@@ -83,6 +86,8 @@ class Project extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('Name',$this->Name,true);
 		$criteria->compare('Description',$this->Description,true);
+		$criteria->compare('Creator',$this->Creator,true);
+		$criteria->compare('Status',$this->Status,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

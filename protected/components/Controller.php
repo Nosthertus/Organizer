@@ -42,17 +42,19 @@ class Controller extends CController
 				$_model->time = date('H:i');
 				$_model->ip = $_SERVER['REMOTE_ADDR'];
 				$_model->save();
-				
-				echo 'Tracking';
 			}
 		}
 
 		parent::init();
 	}
 
+	//Returns the status name from a given id
 	public function status($status)
 	{
 		$status = intval($status);
+
+		if($status == 0)
+			return '<span class="label label-default">Not Started</span>';
 
 		if($status == 1)
 			return '<span class="label label-primary">Pending</span>';
@@ -64,9 +66,10 @@ class Controller extends CController
 			return '<span class="label label-info">In Progress</span>';
 
 		else
-			return '<span class="label label-danger">Danger</span>';
+			return '<span class="label label-danger">Unknown</span>';
 	}
 
+	//Explode strings to array
 	public function explodeByComma($data)
 	{
 		if(strpos($data, ',') !== false)
@@ -80,6 +83,7 @@ class Controller extends CController
 			return false;
 	}
 
+	//Remove the spaces
 	public function removeSpace($that)
 	{
 		if(is_array($that))
@@ -99,6 +103,7 @@ class Controller extends CController
 		}
 	}
 	
+	//Sorts the array by order given
 	public function array_sort($array, $on, $order=SORT_ASC)
 	{
 		$new_array = array();
@@ -132,5 +137,16 @@ class Controller extends CController
 		}
 
 		return $new_array;
+	}
+
+	//Returns true or false if the current page is home
+	public function isHome()
+	{
+		$controller = Yii::app()->getController();
+		if($controller->getId() == 'site' && $controller->getAction()->getId() == 'index')
+			return true;
+
+		else
+			return false;
 	}
 }

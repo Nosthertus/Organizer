@@ -116,6 +116,7 @@ Class TaskController extends Controller
 				$_POST['Task']['Assigned'] = implode(',', $array);
 
 			$model->attributes = $_POST['Task'];
+			$model->Tags = $this->removeSpace($model->Tags);
 			$model->User_id = Yii::app()->user->getId();
 			$model->Update_time = date('YmdHi');
 

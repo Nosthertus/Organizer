@@ -29,6 +29,8 @@ Class ProjectController extends Controller
 		if(isset($_POST['Project']))
 		{
 			$model->attributes = $_POST['Project'];
+			$model->Creator = Yii::app()->user->getId();
+			$model->Status = 0;
 
 			if($model->save())
 			{
