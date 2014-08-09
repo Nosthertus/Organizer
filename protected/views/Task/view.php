@@ -1,6 +1,8 @@
 
 <?php Yii::app()->getClientScript()->registerScriptFile('../js/JQuery-ui.js'); ?>
 <?php Yii::app()->getClientScript()->registerScriptFile('../js/status.js'); ?>
+<?php Yii::app()->getClientScript()->registerScriptFile('../js/tinymce/tinymce.js'); ?>
+<?php Yii::app()->getClientScript()->registerScriptFile('../js/main.js'); ?>
 
 <?php Yii::app()->getClientScript()->registerCssFile('../dist/css/jquery-ui.css'); ?>
 <?php

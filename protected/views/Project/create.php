@@ -30,8 +30,14 @@
 
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'Description'); ?>
-		<?php echo $form->textField($model,'Description', array('class'=>'form-control')); ?>
+		<?php echo $form->textArea($model,'Description', array('class'=>'form-control')); ?>
 		<?php echo $form->error($model,'Description'); ?>
+	</div>
+
+	<div class="form-group">
+		<?php echo $form->labelEx($model,'projecTtype_id'); ?>
+		<?php echo $form->DropDownList($model,'projecTtype_id', CHtml::listData(ProjectType::model()->findAll(), 'id', 'name'), array('class'=>'form-control', 'empty'=>'Select Type'));?>
+		<?php echo $form->error($model,'projecTtype_id'); ?>
 	</div>
 
 

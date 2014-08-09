@@ -19,14 +19,19 @@
 	?>
 	</div>
 	
+
+
 	<?php if($this->isHome()): ?>
 	<div class="list-group">
-		<?php
-		$this->widget('recentTasks', array(
-			'maxTasks'=>10
-		));
-		?>
+		<div class="list-group active">
+			<?php
+			$this->widget('recentTasks', array(
+				'maxTasks'=>10,
+				'htmlOptions'=>array('class'=>'list-group-item')
+			));
+			?>
+		</div>
+		<?php endif; ?>
 	</div>
-	<?php endif; ?>
 </div>
 <?php $this->endContent(); ?>

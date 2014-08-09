@@ -1,24 +1,20 @@
 <?php
 
 /**
- * This is the model class for table "project".
+ * This is the model class for table "projectType".
  *
- * The followings are the available columns in table 'project':
+ * The followings are the available columns in table 'projectType':
  * @property integer $id
- * @property string $Name
- * @property string $Description
- * @property string $Creator
- * @property integer $Status
- * @property integer $projecTtype_id
+ * @property string $name
  */
-class Project extends CActiveRecord
+class ProjectType extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'project';
+		return 'projectType';
 	}
 
 	/**
@@ -29,13 +25,11 @@ class Project extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Name, Creator', 'required'),
-			array('Status, projecTtype_id', 'numerical', 'integerOnly'=>true),
-			array('Name', 'length', 'max'=>256),
-			array('Description', 'safe'),
+			array('name', 'required'),
+			array('name', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, Name, Description, Creator, Status, projecTtype_id', 'safe', 'on'=>'search'),
+			array('id, name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -57,11 +51,7 @@ class Project extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'Name' => 'Name',
-			'Description' => 'Description',
-			'Creator' => 'Creator',
-			'Status' => 'Status',
-			'projecTtype_id' => 'Project type',
+			'name' => 'Name',
 		);
 	}
 
@@ -84,11 +74,7 @@ class Project extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('Name',$this->Name,true);
-		$criteria->compare('Description',$this->Description,true);
-		$criteria->compare('Creator',$this->Creator,true);
-		$criteria->compare('Status',$this->Status);
-		$criteria->compare('projecTtype_id',$this->projecTtype_id);
+		$criteria->compare('name',$this->name,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -99,7 +85,7 @@ class Project extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Project the static model class
+	 * @return ProjectType the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

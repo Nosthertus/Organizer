@@ -6,6 +6,8 @@
 
 <?php Yii::app()->getClientScript()->registerScriptFile('../js/JQuery-ui.js'); ?>
 <?php Yii::app()->getClientScript()->registerScriptFile('../js/tags.js'); ?>
+<?php Yii::app()->getClientScript()->registerScriptFile('../js/tinymce/tinymce.js'); ?>
+<?php Yii::app()->getClientScript()->registerScriptFile('../js/main.js'); ?>
 <?php Yii::app()->getClientScript()->registerCssFile('../dist/css/jquery-ui.css'); ?>
 
 <h1><?php
