@@ -47,6 +47,8 @@ class Project extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'type'=>array(self::BELONGS_TO, 'ProjectType', 'projecTtype_id'),
+			'user'=>array(self::BELONGS_TO, 'User', 'Creator')
 		);
 	}
 

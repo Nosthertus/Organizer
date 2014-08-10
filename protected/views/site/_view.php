@@ -8,10 +8,18 @@
 			<div class="col-md-3">
 				<?php
 					if($data->Creator != '0')
-						echo "<kbd>".User::model()->findByPk($data->Creator)->username."</kbd>";
+						echo "<kbd>".$data->user->username."</kbd>";
 
 					else
 						echo "<kbd>Unknown</kbd>";
+				?>
+				<br><br>
+				<?php
+				if($data->projecTtype_id != 0)
+					echo $data->type->name;
+
+				else
+					echo '<i>NULL</i>'
 				?>
 			</div>
 		</div>
