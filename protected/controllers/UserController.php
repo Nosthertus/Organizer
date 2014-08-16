@@ -23,8 +23,27 @@ class UserController extends Controller
 		);
 	}
 
+
 	public function actionView($id)
 	{
+		if(isset($_GET['Email']))
+		{
+			echo "Email";
+			Yii::app()->end();
+		}
+
+		if(isset($_GET['Password']))
+		{
+			echo "Password";
+			Yii::app()->end();
+		}
+
+		if(isset($_GET['Tags']))
+		{
+			echo "Tags";
+			Yii::app()->end();
+		}
+
 		$model = $this->loadModel($id);
 
 		$this->render('view', array(
