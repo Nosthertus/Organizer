@@ -28,7 +28,23 @@ class UserController extends Controller
 	{
 		if(isset($_GET['Email']))
 		{
-			echo "Email";
+			$model = $this->loadModel($id);
+
+			if(isset($_POST['User']))
+			{
+				$model->attributes = $_POST['User'];
+
+				if($model->save())
+				{
+					$this->redirect(array('view',
+						'id'=>$model->id
+					));
+				}
+			}
+
+			$this->renderPartial('Email', array(
+				'model'=>$model
+			));
 			Yii::app()->end();
 		}
 
