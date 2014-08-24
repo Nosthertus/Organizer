@@ -1,3 +1,9 @@
+<?php
+Yii::import('application.vendor.Identicon.Identicon');
+	$identicon = new Identicon();
+
+	$identicon->displayImage('test');
+?>
 <h1>Options</h1>
 <hr>
 <?php $this->widget('zii.widgets.CDetailView', array(

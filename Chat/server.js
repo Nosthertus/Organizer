@@ -41,6 +41,14 @@ var socket = io.sockets.on('connection', function(socket)
 			username: user
 		});
 	});
+
+	socket.on('writeCollab', function(data)
+	{
+		io.sockets.emit('writenCollab',
+		{
+			collab: data['code']
+		});
+	});
 });
 
 socket;

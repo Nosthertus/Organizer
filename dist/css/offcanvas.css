@@ -87,3 +87,9 @@ div.box
 	background-color: #222222;
 	border-color: #222222;
 }
+#statusBar
+{
+	color: #ffffff;
+	background-color: #222222;
+	border-color: #000000;
+}

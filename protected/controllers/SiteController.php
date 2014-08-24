@@ -245,12 +245,25 @@ class SiteController extends Controller
 		if(isset($_POST['User']))
 		{
 			$model->attributes = $_POST['User'];
-			$model->password=$model->hashPassword($_POST['User']['password'],$session=$model->generateSalt());
-			$model->session=$session;
+			$data = User::model()->find(array(
+				'condition'=>'username=:user',
+				'params'=>array('user'=>$model->username)
+			));
 
-			if($model->save())
+			if(!$data)
 			{
-				$this->redirect(array('login'));
+				$model->password=$model->hashPassword($_POST['User']['password'],$session=$model->generateSalt());
+				$model->session=$session;
+
+				if($model->save())
+				{
+					$this->redirect(array('login'));
+				}
+			}
+
+			else
+			{
+				$model->addError('username', 'User already exists');
 			}
 		}
 		

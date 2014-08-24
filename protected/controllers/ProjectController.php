@@ -13,7 +13,7 @@ Class ProjectController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create', 'view'),
+				'actions'=>array('create', 'view', 'type'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -70,6 +70,15 @@ Class ProjectController extends Controller
 		$this->layout = 'column2';
 
 		$this->render('view', array('model'=>$model, 'dataProvider'=>$dataProvider));
+	}
+
+	public function actionType()
+	{
+		$model = new ProjectType;
+
+		$this->render('Type', array(
+			'model'=>$model
+		));
 	}
 
 	public function loadModel($id)
