@@ -93,6 +93,10 @@ class Module extends CActiveRecord
 		));
 	}
 
+	/**
+	* Returns the quantity of all modules in same project.
+	* @param string/integer $project id.
+	*/
 	public function countModules($project)
 	{
 		$criteria = new CDbCriteria(array(
@@ -103,6 +107,16 @@ class Module extends CActiveRecord
 		$count = count($this->findAll($criteria));
 
 		return $count;
+	}
+
+	public function getFromProject($project)
+	{
+		$criteria = new CDbCriteria(array(
+			'condition'=>'project_id=:id',
+			'params'=>array('id'=>$project)
+		));
+
+		return $this->findAll($criteria);
 	}
 
 	/**

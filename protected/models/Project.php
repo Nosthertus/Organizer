@@ -67,6 +67,13 @@ class Project extends CActiveRecord
 		);
 	}
 
+	public function hasModules($id)
+	{
+		return Module::model()->find(array(
+			'condition'=>'project_id='.$id
+		));
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 *
