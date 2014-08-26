@@ -106,8 +106,8 @@ function modules()
 
 	for(a in result)
 	{			
-		html += '<label class="control-label" for="modName_' + (a *1 +1) + '">Modulo ' + (a *1 +1) + '</label>	<input class="form-control" value="" name="modName_' + (a *1 +1) + '" id="modName_' + (a *1 +1) + '" type="text">	<br>'
-				+'<label class="control-label" for="modDes_' + (a *1 +1) + '">Description ' + (a *1 +1) + '</label>	<textarea class="form-control" name="modDes_' + (a *1 +1) + '" id="modDes_' + (a *1 +1) + '"></textarea>';
+		html += '<label class="control-label" for="modName_' + (a *1 +1) + '">Modulo ' + (a *1 +1) + '</label>	<input class="form-control" value="" name="Module[' + (a *1 +1) + '][Name]" id="modName_' + (a *1 +1) + '" type="text">	<br>'
+				+'<label class="control-label" for="modDes_' + (a *1 +1) + '">Description ' + (a *1 +1) + '</label>	<textarea class="form-control" name="Module[' + (a *1 +1) + '][Description]" id="modDes_' + (a *1 +1) + '"></textarea><br>';
 	}
 		$('#moduleLevel').html(html);
 }
