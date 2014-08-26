@@ -46,6 +46,7 @@ class Module extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'project'=>array(self::BELONGS_TO, 'Project', 'project_id')
 		);
 	}
 
@@ -90,6 +91,18 @@ class Module extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	public function countModules($project)
+	{
+		$criteria = new CDbCriteria(array(
+			'condition'=>'project_id=:id',
+			'params'=>array('id'=>$project)
+		));
+
+		$count = count($this->findAll($criteria));
+
+		return $count;
 	}
 
 	/**
