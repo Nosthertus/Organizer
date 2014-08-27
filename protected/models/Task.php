@@ -55,6 +55,7 @@ class Task extends CActiveRecord
 			'comments' => array(self::HAS_MANY, 'Comment', 'Task_id'),
 			'project' => array(self::BELONGS_TO, 'Project', 'Project_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'User_id'),
+			'module'=>array(self::BELONGS_TO, 'Module', 'Module_id')
 		);
 	}
 

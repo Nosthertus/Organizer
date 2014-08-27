@@ -76,6 +76,21 @@ Class ProjectController extends Controller
 			'criteria'=>$criteria
 		));
 
+		if(isset($_POST['module_id']))
+		{
+			if($_POST['module_id'])
+				$criteria->addCondition('Module_id='.$_POST['module_id']);
+
+			$this->widget('zii.widgets.ClistView', array(
+				'dataProvider'=>$dataProvider,
+				'itemView'=>'_view',
+				'template'=>"{items}\n{pager}",
+				'emptyText'=>'No task for this project'
+			));
+			
+			Yii::app()->end();
+		}
+
 		$this->layout = 'column2';
 
 		$this->render('view', array('model'=>$model, 'dataProvider'=>$dataProvider));

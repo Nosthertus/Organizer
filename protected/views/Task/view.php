@@ -92,6 +92,12 @@
 					else
 						echo "<code>Not Assigned</code>";
 				?>
+
+				<?php if(Project::model()->hasModules($model->project->id)): ?>
+
+				<b>Module: </b><?php echo $model->module->name; ?>
+
+				<?php endif; ?>
 			</div>
 			<div class="col-md-3">
 				<h2><?php echo $this->status($model->Status); ?></h2>	
