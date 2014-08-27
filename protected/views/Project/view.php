@@ -20,12 +20,37 @@ $this->menu = array(
 	<div class="row">
 		<div class="col-md-4">
 			<p class="help-block">Sort by Status.</p>
-			<?php echo CHtml::dropdownList('criteriaStatus', isset($_GET['status']) ? array($_GET['status']) : '', array(0 => 'All', 1 => 'Pending', 2 => 'Finished', 3 => 'In progress', 4 => 'Danger'), array('onChange'=>'Status();', 'id'=>'criteriaStatus')); ?> 
+			<?php echo CHtml::dropdownList('criteriaStatus', isset($_GET['status']) ? array($_GET['status']) : '', array(0 => 'All', 1 => 'Pending', 2 => 'Finished', 3 => 'In progress', 4 => 'Danger'), array(
+				'onChange'=>'Status();',
+				'id'=>'criteriaStatus',
+				'class'=>'form-control'
+			)); ?> 
 		</div>
 
-		<div class="col-md-4 col-md-offset-4">
+		<div class="col-md-4">
+			<p class="help-block">Sort by Modules.</p>
+			<?php echo CHtml::dropdownList('criteriaModules', '', CHtml::listData(Module::model()->getFromProject($model->id), 'id', 'name'), array(
+				'empty'=>'',
+				'class'=>'form-control',
+				'ajax'=>array(
+					'type'=>'POST',
+					'url'=>'',
+					'update'=>'.list-view',
+					'data'=>array(
+						'module_id'=>'js:this.value'
+					)
+				)
+			)); ?>
+		</div>
+
+		<div class="col-md-4">
 			<p class="help-block">Sort by User.</p>
-			<?php echo CHtml::dropdownList('criteriaAssigned', isset($_GET['user']) ? array($_GET['user']) : '', CHtml::listData(User::model()->findAll(), 'id', 'username'), array('onChange'=>'Assigned();', 'id'=>'criteriaAssigned', 'empty'=>'All')); ?>
+			<?php echo CHtml::dropdownList('criteriaAssigned', isset($_GET['user']) ? array($_GET['user']) : '', CHtml::listData(User::model()->findAll(), 'id', 'username'), array(
+				'onChange'=>'Assigned();',
+				'id'=>'criteriaAssigned',
+				'empty'=>'All',
+				'class'=>'form-control'
+			)); ?>
 		</div>
 	</div>
 	<br>

@@ -35,22 +35,40 @@
 		<?php echo $form->error($model,'Name'); ?>
 	</div>
 
-	<div class="form-group">
-		<?php 
-		if(isset($_GET['project']))
-		{
-			echo $form->hiddenField($model,'Project_id', array('class'=>'form-control', 'value'=>$model->Project_id ? $model->Project_id : $_GET['project']));
-			echo CHtml::hiddenField('project', $model->Project_id ? $model->Project_id : $_GET['project']);
-		}
+		<?php if(isset($_GET['project'])): ?>
+			<div class="form-group">
+				<?php echo $form->hiddenField($model,'Project_id', array('class'=>'form-control', 'value'=>$model->Project_id ? $model->Project_id : $_GET['project'])); ?>
+				<?php echo CHtml::hiddenField('project', $model->Project_id ? $model->Project_id : $_GET['project']); ?>
+				<?php echo $form->error($model,'Project_id'); ?>
+			</div>
 
-		else
-		{
-			echo $form->labelEx($model,'Project_id');
-			echo $form->DropDownList($model,'Project_id', CHtml::listData(Project::model()->findAll(), 'id', 'Name'), array('class'=>'form-control', 'empty'=>'Select Project')); 
-		}
-		?>
-		<?php echo $form->error($model,'Project_id'); ?>
-	</div>
+			<div class="form-group" id="moduleControl">
+				<?php if(Project::model()->hasModules($_GET['project'])): ?>
+					<?php echo CHtml::label('Module', 'module').'<br>'; ?>
+					<?php echo CHtml::dropDownList('module', '', CHtml::listData(Module::model()->getFromProject($_GET['project']), 'id', 'name'), array('prompt'=>'Select Module', 'class'=>'form-control')); ?>
+				<?php endif; ?>
+			</div>
+		<?php endif; ?>
+
+		<?php if(!isset($_GET['project'])): ?>
+		<div class="form-group">
+			<?php echo $form->labelEx($model,'Project_id');?>
+			<?php echo $form->DropDownList($model,'Project_id', CHtml::listData(Project::model()->findAll(), 'id', 'Name'), array(
+				'class'=>'form-control', 
+				'empty'=>'Select Project',
+				'ajax'=>array(
+					'type'=>'POST',
+					'url'=>'',
+					'update'=>'#moduleControl',
+					'data'=>array(
+						'project_id'=>'js:this.value'
+					)
+				)
+			)); ?>
+		</div>
+
+		<div class="form-group" id="moduleControl"></div>
+		<?php endif; ?>
 
 	<div class="form-group">
 		<?php echo $form->labelEx($model,'Description'); ?>

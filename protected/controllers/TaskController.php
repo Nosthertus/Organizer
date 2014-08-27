@@ -153,6 +153,9 @@ Class TaskController extends Controller
 				$model->Create_time = date('YmdHi');
 				$model->Update_time = date('YmdHi');
 
+				if(isset($_POST['module']))
+					$model->Module_id = $_POST['module'];
+
 				$tags = $model->Tags;
 
 				$tags = explode(",", $tags);
@@ -209,6 +212,9 @@ Class TaskController extends Controller
 				$model->Create_time = date('YmdHi');
 				$model->Update_time = date('YmdHi');
 
+				if(isset($_POST['module']))
+					$model->Module_id = $_POST['module'];
+
 				$tags = $model->Tags;
 
 				$tags = explode(",", $tags);
@@ -248,6 +254,14 @@ Class TaskController extends Controller
 					$this->redirect(array('/Task'));
 				}
 			}
+		}
+
+		if(isset($_POST['project_id']))
+		{
+			if(Project::model()->hasModules($_POST['project_id']))
+				echo CHtml::label('Module', 'module').'<br>'.CHtml::dropDownList('module', '', CHtml::listData(Module::model()->getFromProject($_POST['project_id']), 'id', 'name'), array('prompt'=>'Select Module', 'class'=>'form-control'));
+		
+			Yii::app()->end();
 		}
 
 		$this->render('create', array('model'=>$model));

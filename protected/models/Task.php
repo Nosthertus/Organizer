@@ -11,14 +11,10 @@
  * @property string $Create_time
  * @property string $Update_time
  * @property string $Tags
+ * @property string $Assigned
  * @property integer $Project_id
  * @property integer $User_id
- * @property string $Assigned
- *
- * The followings are the available model relations:
- * @property Comment[] $comments
- * @property Project $project
- * @property User $user
+ * @property integer $Module_id
  */
 class Task extends CActiveRecord
 {
@@ -39,12 +35,12 @@ class Task extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Name, Status, Project_id, User_id', 'required'),
-			array('Status, Project_id, User_id', 'numerical', 'integerOnly'=>true),
+			array('Status, Project_id, User_id, Module_id', 'numerical', 'integerOnly'=>true),
 			array('Name, Create_time, Update_time, Assigned', 'length', 'max'=>45),
 			array('Description, Tags', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, Name, Description, Status, Create_time, Update_time, Tags, Project_id, User_id, Assigned', 'safe', 'on'=>'search'),
+			array('id, Name, Description, Status, Create_time, Update_time, Tags, Assigned, Project_id, User_id, Module_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,6 +55,7 @@ class Task extends CActiveRecord
 			'comments' => array(self::HAS_MANY, 'Comment', 'Task_id'),
 			'project' => array(self::BELONGS_TO, 'Project', 'Project_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'User_id'),
+			'module'=>array(self::BELONGS_TO, 'Module', 'Module_id')
 		);
 	}
 
@@ -75,9 +72,10 @@ class Task extends CActiveRecord
 			'Create_time' => 'Create Time',
 			'Update_time' => 'Update Time',
 			'Tags' => 'Tags',
+			'Assigned' => 'Assigned',
 			'Project_id' => 'Project',
 			'User_id' => 'User',
-			'Assigned' => 'Assigned',
+			'Module_id' => 'Module',
 		);
 	}
 
@@ -115,9 +113,10 @@ class Task extends CActiveRecord
 		$criteria->compare('Create_time',$this->Create_time,true);
 		$criteria->compare('Update_time',$this->Update_time,true);
 		$criteria->compare('Tags',$this->Tags,true);
+		$criteria->compare('Assigned',$this->Assigned,true);
 		$criteria->compare('Project_id',$this->Project_id);
 		$criteria->compare('User_id',$this->User_id);
-		$criteria->compare('Assigned',$this->Assigned,true);
+		$criteria->compare('Module_id',$this->Module_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
