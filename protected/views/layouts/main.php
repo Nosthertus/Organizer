@@ -51,7 +51,7 @@
 					'encodeLabel'=>false,
 					'items'=>array(
 						array('label'=>'Login', 'url'=>array('site/login'), 'visible'=>Yii::app()->user->isGuest),
-						array('label'=>Yii::app()->user->name.' <span class="caret"></span>', 'url'=>'#', 'visible'=>!Yii::app()->user->isGuest,
+						array('label'=>CHtml::image(YiiIdenticon::getImageDataUri(Yii::app()->user->getId(), '20')).' '.Yii::app()->user->name.' <span class="caret"></span>', 'url'=>'#', 'visible'=>!Yii::app()->user->isGuest,
 							'itemOptions'=>array('class'=>'dropdown'),
 							'submenuOptions'=>array('class'=>'dropdown-menu'),
 							'linkOptions'=>array('class'=>'dropdown-toggle', 'data-toggle'=>'dropdown'), 
@@ -67,6 +67,7 @@
 	</div>
 
 	<div class="container">
+		
 		<?php echo $content; ?>
 
 	</div><!-- /.container -->

@@ -104,6 +104,8 @@
 				<?php foreach($model->Tags as $data): ?>
 					<span class="label label-default"><?php echo $data; ?></span>
 				<?php endforeach; ?>
+				
+				<b>Requester: </b><?php echo $model->user->username; ?>
 			</div>
 		</div>
 	</div>
