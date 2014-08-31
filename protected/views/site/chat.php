@@ -55,8 +55,17 @@
 	<script src="http://<?php echo Yii::app()->request->serverName; ?>:3000/socket.io/socket.io.js"></script>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
-		//Set host connection parameters.
-		var socketio = io.connect(window.location.hostname+':3000');
+		if(typeof io === 'undefined')
+		{
+			$('#Message').attr('placeholder', 'Cannot connect to server...');
+			$('#Message').attr('disabled', true);
+		}
+
+		else
+		{
+			//Set host connection parameters.
+			var socketio = io.connect(window.location.hostname+':3000');
+		}
 		
 		window.onload = init();
 
