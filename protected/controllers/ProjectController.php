@@ -34,7 +34,22 @@ Class ProjectController extends Controller
 
 			if($model->save())
 			{
-				$this->redirect(array('/site/index'));
+				//Check whenever modules are added in the form.
+				if(isset($_POST['module']))
+				{
+					if($_POST['modules'] != 0)
+					{
+						$this->module($model, $_POST['Module']);
+
+						$this->redirect(array('/site/index'));
+					}
+
+					Project::model()->findByPk($model->id)->delete();
+					$model->addError('modules', 'Select number of modules.');
+				}
+
+				else
+					$this->redirect(array('/site/index'));
 			}
 		}
 
@@ -57,15 +72,24 @@ Class ProjectController extends Controller
 		if(isset($_GET['status']))
 			$criteria->addCondition('Status='.$_GET['status']);
 
-		// $criteria = new CDbCriteria(array(
-		// 	'order'=>'id desc',
-		// 	'condition'=>'Project_id=:id AND ("," || Assigned || ",") LIKE "%,:userid,%"',
-		// 	'params'=>array(':id'=>$id)
-		// ));
-
 		$dataProvider = new CActiveDataProvider('Task', array(
 			'criteria'=>$criteria
 		));
+
+		if(isset($_POST['module_id']))
+		{
+			if($_POST['module_id'])
+				$criteria->addCondition('Module_id='.$_POST['module_id']);
+
+			$this->widget('zii.widgets.ClistView', array(
+				'dataProvider'=>$dataProvider,
+				'itemView'=>'_view',
+				'template'=>"{items}\n{pager}",
+				'emptyText'=>'No task for this project'
+			));
+			
+			Yii::app()->end();
+		}
 
 		$this->layout = 'column2';
 
@@ -90,6 +114,21 @@ Class ProjectController extends Controller
 
 		else
 			return $model;
+	}
+
+	public function module($project, $modules)
+	{
+		foreach($modules as $data)
+		{
+			$_model = new Module;
+
+			$_model->project_id = $project->id;
+			$_model->name = $data['Name'];
+			$_model->description = $data['Description'];
+			$_model->status = 0;
+
+			$_model->save();
+		}
 	}
 }
 ?>

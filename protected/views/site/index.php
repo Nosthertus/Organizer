@@ -30,7 +30,6 @@ $this->menu = array(
 	}
 ?>
 
-
 <div id="Projects">
 	<?php
 	$this->widget('zii.widgets.CListView', array(

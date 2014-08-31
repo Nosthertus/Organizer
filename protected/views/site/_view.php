@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="col-md-9">
 				<h4><?php echo CHtml::Link(CHtml::encode($data->Name), array('/project/view', 'id'=>$data->id), array('data-status'=>$data->Status, 'onClick'=>'Check('.$data->Status.');')); ?></h4>
-				<?php echo $this->status($data->Status); ?>
+				<?php echo $this->status($data->Status); ?> <b>Modules: </b><?php echo Module::model()->countModules($data->id); ?>
 			</div>
 			<div class="col-md-3">
 				<?php

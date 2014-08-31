@@ -1,24 +1,23 @@
 <?php
 
 /**
- * This is the model class for table "project".
+ * This is the model class for table "module".
  *
- * The followings are the available columns in table 'project':
+ * The followings are the available columns in table 'module':
  * @property integer $id
- * @property string $Name
- * @property string $Description
- * @property string $Creator
- * @property integer $Status
- * @property integer $projecTtype_id
+ * @property integer $project_id
+ * @property string $name
+ * @property string $description
+ * @property integer $status
  */
-class Project extends CActiveRecord
+class Module extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'project';
+		return 'module';
 	}
 
 	/**
@@ -29,13 +28,13 @@ class Project extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Name, Creator', 'required'),
-			array('Status, projecTtype_id', 'numerical', 'integerOnly'=>true),
-			array('Name', 'length', 'max'=>256),
-			array('Description', 'safe'),
+			array('project_id, name, status', 'required'),
+			array('project_id, status', 'numerical', 'integerOnly'=>true),
+			array('name', 'length', 'max'=>128),
+			array('description', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, Name, Description, Creator, Status, projecTtype_id', 'safe', 'on'=>'search'),
+			array('id, project_id, name, description, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -47,8 +46,7 @@ class Project extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'type'=>array(self::BELONGS_TO, 'ProjectType', 'projecTtype_id'),
-			'user'=>array(self::BELONGS_TO, 'User', 'Creator')
+			'project'=>array(self::BELONGS_TO, 'Project', 'project_id')
 		);
 	}
 
@@ -59,19 +57,11 @@ class Project extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'Name' => 'Name',
-			'Description' => 'Description',
-			'Creator' => 'Creator',
-			'Status' => 'Status',
-			'projecTtype_id' => 'Project type',
+			'project_id' => 'Project',
+			'name' => 'Name',
+			'description' => 'Description',
+			'status' => 'Status',
 		);
-	}
-
-	public function hasModules($id)
-	{
-		return Module::model()->find(array(
-			'condition'=>'project_id='.$id
-		));
 	}
 
 	/**
@@ -93,11 +83,10 @@ class Project extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('Name',$this->Name,true);
-		$criteria->compare('Description',$this->Description,true);
-		$criteria->compare('Creator',$this->Creator,true);
-		$criteria->compare('Status',$this->Status);
-		$criteria->compare('projecTtype_id',$this->projecTtype_id);
+		$criteria->compare('project_id',$this->project_id);
+		$criteria->compare('name',$this->name,true);
+		$criteria->compare('description',$this->description,true);
+		$criteria->compare('status',$this->status);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -105,10 +94,36 @@ class Project extends CActiveRecord
 	}
 
 	/**
+	* Returns the quantity of all modules in same project.
+	* @param string/integer $project id.
+	*/
+	public function countModules($project)
+	{
+		$criteria = new CDbCriteria(array(
+			'condition'=>'project_id=:id',
+			'params'=>array('id'=>$project)
+		));
+
+		$count = count($this->findAll($criteria));
+
+		return $count;
+	}
+
+	public function getFromProject($project)
+	{
+		$criteria = new CDbCriteria(array(
+			'condition'=>'project_id=:id',
+			'params'=>array('id'=>$project)
+		));
+
+		return $this->findAll($criteria);
+	}
+
+	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Project the static model class
+	 * @return Module the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
