@@ -38,7 +38,8 @@ var socket = io.sockets.on('connection', function(socket)
 		io.sockets.emit('messageToClient',
 		{
 			message: msg,
-			username: user
+			username: user,
+			image: data['image']
 		});
 	});
 });

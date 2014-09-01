@@ -33,7 +33,7 @@
 
 	<div class="navbar navbar-inverse" id="chatMenu">
 		<div class="navbar-header">
-			<p class="navbar-text" id="Username"><?php echo Yii::app()->user->name; ?></p>
+			<p class="navbar-text" id="Username"><?php echo CHtml::image(YiiIdenticon::getImageDataUri(Yii::app()->user->getId(), '20'), '').' '.Yii::app()->user->name; ?></p>
 			<p class="navbar-text">[Icons and options HERE!]</p>
 		</div>
 		<?php echo CHtml::beginForm(null, 'post', array('id'=>'messageForm')); ?>
@@ -74,7 +74,9 @@
 		{
 			var chatLog = document.getElementById('chatBox');
 
-			chatLog.innerHTML = chatLog.innerHTML + '<div><pre>' + '<b>' + data['username'] + ':</b><br>' +urlify(data['message']) + '</pre></div>';
+			dataUri = "<img src='" + data['image'] + "' />";
+
+			chatLog.innerHTML = chatLog.innerHTML + '<div><pre>' + dataUri + ' <b>' + data['username'] + ':</b><br>' +urlify(data['message']) + '</pre></div>';
 			sound();
 			window.scrollTo(0, document.body.scrollHeight);
 		});
@@ -96,7 +98,8 @@
 				socketio.emit('messageToServer',
 				{
 					message: message.value,
-					username: "<?php echo Yii::app()->user->name; ?>"
+					username: "<?php echo Yii::app()->user->name; ?>", 
+					image: "<?php echo YiiIdenticon::getImageDataUri(Yii::app()->user->getId(), 20); ?>"
 				});
 
 				message.value = '';
