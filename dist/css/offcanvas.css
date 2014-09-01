@@ -80,6 +80,18 @@ div.box
 {
 	overflow-y: scroll;
 	margin-bottom:140px;
+	padding-left: 20px;
+	padding-right: 12px;
+}
+#userBox
+{
+	background-color: #222;
+	border-radius: 4px;
+	height: 70vh;
+	width: 2%;
+	position: relative;
+	float: left;
+	min-height: 1px;
 }
 .item-active
 {

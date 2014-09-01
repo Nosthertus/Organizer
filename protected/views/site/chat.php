@@ -28,7 +28,9 @@
 			</div>
 		</div>
 	</div>
-	<div id="chatBox">
+	<div class="row">
+		<div id="userBox"></div>
+		<div id="chatBox"></div>
 	</div>
 
 	<div class="navbar navbar-inverse" id="chatMenu">
@@ -55,6 +57,34 @@
 	<script src="http://<?php echo Yii::app()->request->serverName; ?>:3000/socket.io/socket.io.js"></script>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
+		$(document).ready(function()
+		{
+			init();
+
+			$('#userBox').unbind('click').click(function(event)
+			{
+				if($(this).hasClass('active'))
+				{
+					$(this).removeClass('active');
+					console.log('active removed');
+					$(this).animate(
+					{
+						width:'2%'
+					});
+				}
+
+				else if(!$(this).hasClass('active'))
+				{
+					$(this).addClass('active');
+					console.log('active active');
+					$(this).animate(
+					{
+						width:'15%'
+					});
+				}
+			});
+		});
+
 		if(typeof io === 'undefined')
 		{
 			$('#Message').attr('placeholder', 'Cannot connect to server...');
@@ -66,8 +96,6 @@
 			//Set host connection parameters.
 			var socketio = io.connect(window.location.hostname+':3000');
 		}
-		
-		window.onload = init();
 
 		//When recieves a message from server.
 		socketio.on('messageToClient', function(data)
