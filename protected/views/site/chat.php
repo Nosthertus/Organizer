@@ -29,7 +29,14 @@
 		</div>
 	</div>
 	<div class="row">
-		<div id="userBox"></div>
+		<div id="userBox">
+			<div id="users" style="display:none">
+				<div class="container">
+					<b>Users</b>
+					<ol id="userList"></ol>
+				</div>
+			</div>
+		</div>
 		<div id="chatBox"></div>
 	</div>
 
@@ -61,6 +68,7 @@
 		{
 			init();
 
+			//Add animation to left-div.
 			$('#userBox').unbind('click').click(function(event)
 			{
 				if($(this).hasClass('active'))
@@ -71,6 +79,7 @@
 					{
 						width:'2%'
 					});
+					toggleUsers();
 				}
 
 				else if(!$(this).hasClass('active'))
@@ -81,6 +90,7 @@
 					{
 						width:'15%'
 					});
+					toggleUsers();
 				}
 			});
 		});
@@ -94,7 +104,11 @@
 		else
 		{
 			//Set host connection parameters.
-			var socketio = io.connect(window.location.hostname+':3000');
+			var socketio = io.connect(window.location.hostname+':3000',
+				{
+					query:'user=<?php echo Yii::app()->user->name; ?>'
+				}
+			);
 		}
 
 		//When recieves a message from server.
@@ -107,6 +121,18 @@
 			chatLog.innerHTML = chatLog.innerHTML + '<div><pre>' + dataUri + ' <b>' + data['username'] + ':</b><br>' +urlify(data['message']) + '</pre></div>';
 			sound();
 			window.scrollTo(0, document.body.scrollHeight);
+		});
+
+		//Display all connected clients.
+		socketio.on('showClients', function(data)
+		{
+			//console.log(data['users']);
+			var usersToShow = "";
+			var arrUsers = data['users'];
+			for (var user in arrUsers){
+				usersToShow +="<li>"+arrUsers[user]+"</li>";
+			}
+			$("#userList").html(usersToShow);
 		});
 
 		function init()
@@ -143,6 +169,23 @@
 			{
 				return '<a href="' + url + '" target="_blank">' + url + '</a>';
 			});
+		}
+
+		function toggleUsers()
+		{
+			var tab = $('#users');
+
+			if(tab.hasClass('active'))
+			{
+				tab.removeClass('active');
+				tab.hide(100);
+			}
+
+			else if(!tab.hasClass('active'))
+			{
+				tab.addClass('active');
+				tab.show(100);
+			}
 		}
 	</script>
 </body>

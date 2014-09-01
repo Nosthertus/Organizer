@@ -88,10 +88,12 @@ div.box
 	background-color: #222;
 	border-radius: 4px;
 	height: 70vh;
-	width: 2%;
+	width: 1%;
 	position: relative;
 	float: left;
 	min-height: 1px;
+	left: 12px;
+	color: #ffffff;
 }
 .item-active
 {

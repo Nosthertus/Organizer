@@ -28,8 +28,20 @@ server.listen(port);
 var io = io.listen(server);
 io.set('log', 0);
 
+var users = [];
+
 var socket = io.sockets.on('connection', function(socket)
 {
+	var user = socket.manager.handshaken[socket.id].query['user'];
+
+	users.push(user);
+
+	//Send connected users list.
+	io.sockets.emit('showClients',
+	{
+		users: users
+	});
+
 	socket.on('messageToServer', function(data)
 	{
 		var msg = escape_html(data['message']);
@@ -40,6 +52,17 @@ var socket = io.sockets.on('connection', function(socket)
 			message: msg,
 			username: user,
 			image: data['image']
+		});
+	});
+
+	socket.on('disconnect', function()
+	{
+		var index = users.indexOf(user);
+		users.splice(index, 1);
+
+		io.sockets.emit('showClients',
+		{
+			users: users
 		});
 	});
 });
