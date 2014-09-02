@@ -74,10 +74,15 @@
 				if($(this).hasClass('active'))
 				{
 					$(this).removeClass('active');
-					console.log('active removed');
+
+					$('#chatBox').animate(
+					{
+						'padding-left':'3.5%'
+					});
+					
 					$(this).animate(
 					{
-						width:'2%'
+						width:'1%'
 					});
 					toggleUsers();
 				}
@@ -85,7 +90,12 @@
 				else if(!$(this).hasClass('active'))
 				{
 					$(this).addClass('active');
-					console.log('active active');
+
+					$('#chatBox').animate(
+					{
+						'padding-left':'17.5%'
+					});
+					
 					$(this).animate(
 					{
 						width:'15%'
