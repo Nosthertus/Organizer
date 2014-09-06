@@ -49,8 +49,9 @@
 			<div class="form-group col-md-12">
 				<?php echo CHtml::textArea('Message', '', array(
 					'class'=>'form-control',
-					'placeholder'=>'Message',
+					'placeholder'=>'Connecting...',
 					'autoComplete'=>'false',
+					'disabled'=>true,
 					'id'=>'Message'
 				)); ?>
 			</div>
@@ -64,6 +65,8 @@
 	<script src="http://<?php echo Yii::app()->request->serverName; ?>:3000/socket.io/socket.io.js"></script>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
+		var user = "<?php echo Yii::app()->user->name; ?>";
+		
 		$(document).ready(function()
 		{
 			init();
@@ -109,6 +112,7 @@
 		{
 			$('#Message').attr('placeholder', 'Cannot connect to server...');
 			$('#Message').attr('disabled', true);
+			$('#users').html('<div class="container">Unable to connect</div>');
 		}
 
 		else
@@ -116,9 +120,12 @@
 			//Set host connection parameters.
 			var socketio = io.connect(window.location.hostname+':3000',
 				{
-					query:'user=<?php echo Yii::app()->user->name; ?>'
+					query:'user=' + user
 				}
 			);
+
+			$('#Message').attr('placeholder', 'Message');
+			$('#Message').attr('disabled', false);
 		}
 
 		//When recieves a message from server.
@@ -143,6 +150,8 @@
 				usersToShow +="<li>"+arrUsers[user]+"</li>";
 			}
 			$("#userList").html(usersToShow);
+
+			joinSound();
 		});
 
 		function init()
