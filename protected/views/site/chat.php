@@ -22,7 +22,7 @@
 
 	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container">
-			<div class="navbar-header">
+			<div class="navbar-header" id="tabs">
 				<a class="navbar-brand" href="#"><?php echo CHtml::encode(Yii::app()->name); ?></a>
 				<p class="navbar-text">[Channel tabs HERE!]</p>
 			</div>
@@ -37,7 +37,9 @@
 				</div>
 			</div>
 		</div>
-		<div id="chatBox"></div>
+		<div id="chatBox">
+			<div id="channel-master"></div>
+		</div>
 	</div>
 
 	<div class="navbar navbar-inverse" id="chatMenu">
@@ -131,7 +133,7 @@
 		//When recieves a message from server.
 		socketio.on('messageToClient', function(data)
 		{
-			var chatLog = document.getElementById('chatBox');
+			var chatLog = document.getElementById('channel-master');
 
 			dataUri = "<img src='" + data['image'] + "' />";
 
@@ -143,12 +145,14 @@
 		//Display all connected clients.
 		socketio.on('showClients', function(data)
 		{
-			//console.log(data['users']);
 			var usersToShow = "";
 			var arrUsers = data['users'];
-			for (var user in arrUsers){
-				usersToShow +="<li>"+arrUsers[user]+"</li>";
+			
+			for (var usr in arrUsers)
+			{
+				usersToShow +="<li onClick=addTab('"+ arrUsers[usr] +"');addChannel('"+ arrUsers[usr] +"');>"+arrUsers[usr]+"</li>";
 			}
+
 			$("#userList").html(usersToShow);
 
 			joinSound();
@@ -205,6 +209,24 @@
 				tab.addClass('active');
 				tab.show(100);
 			}
+		}
+
+		function addTab (tab)
+		{
+			var navbar = $('#tabs');
+
+			var newTab = '<p class="navbar-text ' + tab + '"><a href="#" class="navbar-link ' + tab + '">' + tab + '</a></p>';
+
+			navbar.append(newTab);
+		}
+
+		function addChannel(channel)
+		{
+			var chatBox = $('#chatBox');
+
+			var newChannel = '<div id="channel-' + channel + '" style="display:none"></div>';
+
+			chatBox.append(newChannel);
 		}
 	</script>
 </body>
