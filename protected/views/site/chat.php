@@ -24,7 +24,7 @@
 		<div class="container">
 			<div class="navbar-header" id="tabs">
 				<a class="navbar-brand" href="#"><?php echo CHtml::encode(Yii::app()->name); ?></a>
-				<p class="navbar-text">[Channel tabs HERE!]</p>
+				<p class="navbar-text"><a href="#" class="navbar-link tab active" data-tab="master">Master</a></p>
 			</div>
 		</div>
 	</div>
@@ -72,6 +72,11 @@
 		$(document).ready(function()
 		{
 			init();
+
+			$('#tabs').on('click', 'a.tab', function()
+			{
+				switchChannel($(this));
+			});
 
 			//Add animation to left-div.
 			$('#userBox').unbind('click').click(function(event)
@@ -150,10 +155,15 @@
 			
 			for (var usr in arrUsers)
 			{
-				usersToShow +="<li onClick=addTab('"+ arrUsers[usr] +"');addChannel('"+ arrUsers[usr] +"');>"+arrUsers[usr]+"</li>";
+				usersToShow +="<li class='user' onClick=addChannel('"+ arrUsers[usr] +"');>"+arrUsers[usr]+"</li>";
 			}
 
 			$("#userList").html(usersToShow);
+
+			$('.user').click(function()
+			{
+				console.log($(this).text());
+			});
 
 			joinSound();
 		});
@@ -211,22 +221,31 @@
 			}
 		}
 
-		function addTab (tab)
-		{
-			var navbar = $('#tabs');
-
-			var newTab = '<p class="navbar-text ' + tab + '"><a href="#" class="navbar-link ' + tab + '">' + tab + '</a></p>';
-
-			navbar.append(newTab);
-		}
-
 		function addChannel(channel)
 		{
 			var chatBox = $('#chatBox');
+			var navbar = $('#tabs');
 
 			var newChannel = '<div id="channel-' + channel + '" style="display:none"></div>';
+			var newTab = '<p class="navbar-text"><a href="#" class="navbar-link tab" data-tab="'+ channel +'">' + channel + '</a></p>';
 
 			chatBox.append(newChannel);
+			navbar.append(newTab);
+		}
+
+		function switchChannel(tag)
+		{
+			var currentChannel = $('.tab.active');
+			var newChannel = tag;
+
+			//hide old channel.
+			currentChannel.removeClass('active');
+			$('#channel-'+ currentChannel.attr('data-tab')).hide();
+
+
+			//show new channel.
+			newChannel.addClass('active');
+			$('#channel-'+ newChannel.attr('data-tab')).show();
 		}
 	</script>
 </body>

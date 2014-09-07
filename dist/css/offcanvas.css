@@ -101,3 +101,8 @@ div.box
 	background-color: #222222;
 	border-color: #222222;
 }
+p.active
+{
+	background-color: #000000;
+	color: #ffffff;
+}
