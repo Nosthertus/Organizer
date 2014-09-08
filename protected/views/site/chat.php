@@ -24,7 +24,7 @@
 		<div class="container">
 			<div class="navbar-header" id="tabs">
 				<a class="navbar-brand" href="#"><?php echo CHtml::encode(Yii::app()->name); ?></a>
-				<p class="navbar-text"><a href="#" class="navbar-link tab active" data-tab="master">Master</a></p>
+				<p class="navbar-text menu"><a href="#" class="navbar-link tab active" data-tab="master">Master</a></p>
 			</div>
 		</div>
 	</div>
@@ -160,11 +160,6 @@
 
 			$("#userList").html(usersToShow);
 
-			$('.user').click(function()
-			{
-				console.log($(this).text());
-			});
-
 			joinSound();
 		});
 
@@ -186,7 +181,8 @@
 				{
 					message: message.value,
 					username: "<?php echo Yii::app()->user->name; ?>", 
-					image: "<?php echo YiiIdenticon::getImageDataUri(Yii::app()->user->getId(), 20); ?>"
+					image: "<?php echo YiiIdenticon::getImageDataUri(Yii::app()->user->getId(), 20); ?>",
+					channel: $('a.tab.active').attr('data-tab')
 				});
 
 				message.value = '';
@@ -227,7 +223,7 @@
 			var navbar = $('#tabs');
 
 			var newChannel = '<div id="channel-' + channel + '" style="display:none"></div>';
-			var newTab = '<p class="navbar-text"><a href="#" class="navbar-link tab" data-tab="'+ channel +'">' + channel + '</a></p>';
+			var newTab = '<p class="navbar-text menu"><a href="#" class="navbar-link tab" data-tab="'+ channel +'">' + channel + '</a></p>';
 
 			chatBox.append(newChannel);
 			navbar.append(newTab);

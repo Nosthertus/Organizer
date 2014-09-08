@@ -101,8 +101,19 @@ div.box
 	background-color: #222222;
 	border-color: #222222;
 }
-p.active
+a.active
 {
 	background-color: #000000;
 	color: #ffffff;
 }
+/*
+.menu
+{
+	margin-left: 0px;
+	margin-right: 0px;
+}
+position: relative;
+background-color: black;
+margin: 0px;
+padding: 17px;
+*/
