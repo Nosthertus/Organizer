@@ -29,12 +29,16 @@ var io = io.listen(server);
 io.set('log', 0);
 
 var users = [];
+var id = {};
 
 var socket = io.sockets.on('connection', function(socket)
 {
 	var user = socket.manager.handshaken[socket.id].query['user'];
 
 	users.push(user);
+	id[user] = socket.id;
+
+	console.log(id);
 
 	//Send connected users list.
 	io.sockets.emit('showClients',
@@ -55,10 +59,24 @@ var socket = io.sockets.on('connection', function(socket)
 		});
 	});
 
+	socket.on('sendPrivateMessage', function(to, message, data)
+	{
+		var destination = id[to];
+
+		io.sockets.socket(destination).emit('recievePrivateMessage',
+		{
+			message: message,
+			username: user,
+			image: data['image']
+		});
+	});
+
 	socket.on('disconnect', function()
 	{
 		var index = users.indexOf(user);
 		users.splice(index, 1);
+
+		delete id[user];
 
 		io.sockets.emit('showClients',
 		{
