@@ -30,7 +30,8 @@ $this->menu = array(
 		<div class="col-md-4">
 			<p class="help-block">Sort by Modules.</p>
 			<?php echo CHtml::dropdownList('criteriaModules', '', CHtml::listData(Module::model()->getFromProject($model->id), 'id', 'name'), array(
-				'empty'=>'',
+				'empty'=>Project::model()->hasModules($model->id) ? 'Modules' : 'No modules',
+				'disabled'=>!Project::model()->hasModules($model->id),
 				'class'=>'form-control',
 				'ajax'=>array(
 					'type'=>'POST',
