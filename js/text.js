@@ -2,7 +2,8 @@
 $(document).ready(function(){
 	$.ionSound({
     sounds: [                       // set needed sounds names
-        "chatAlert"
+        "chatAlert",
+        "joinAlert"
     ],
     path: "../Misc/Sound/",                // set path to sounds
     multiPlay: false               // playing only 1 sound at once
@@ -22,6 +23,9 @@ $(document).ready(function(){
 
 function sound(){
 	$.ionSound.play("chatAlert");
+}
+function joinSound(){
+ $.ionSound.play("joinAlert"); 
 }
 
 function getCaret(el) {
