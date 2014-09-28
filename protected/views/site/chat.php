@@ -68,7 +68,7 @@
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 		var user = "<?php echo Yii::app()->user->name; ?>";
-		
+		var tabsArray = [];
 		$(document).ready(function()
 		{
 			init();
@@ -127,9 +127,12 @@
 			//Set host connection parameters.
 			var socketio = io.connect(window.location.hostname+':3000',
 				{
-					query:'user=' + user
+					query:'user=' + user + '&icon=' + '<?php echo YiiIdenticon::getImageDataUri(Yii::app()->user->getId(), 20); ?>',
+					test: 'test'
 				}
 			);
+
+			console.log('sending: <?php echo YiiIdenticon::getImageDataUri(Yii::app()->user->getId(), 20); ?>');
 
 			$('#Message').attr('placeholder', 'Message');
 			$('#Message').attr('disabled', false);
@@ -155,7 +158,11 @@
 			
 			for (var usr in arrUsers)
 			{
-				usersToShow +="<li class='user' onClick=addChannel('"+ arrUsers[usr] +"');>"+arrUsers[usr]+"</li>";
+				var icon = data['icons'][arrUsers[usr]];
+
+				icon = icon.replace(/ /g, "+");
+
+				usersToShow +="<li class='user' onClick=addChannel('"+ arrUsers[usr] +"');><img src='"+icon+"'></img> "+arrUsers[usr]+"</li>";
 			}
 
 			$("#userList").html(usersToShow);
@@ -175,6 +182,16 @@
 			chatLog.append('<div><pre>' + dataUri + ' <b>' + data['username'] + ':</b><br>' +urlify(data['message']) + '</pre></div>');
 			sound();
 			window.scrollTo(0, document.body.scrollHeight);
+		});
+		socketio.on('sendHistory',function(data){
+			var historyText = "";
+			if(data["history"].length>0){
+				for (var i = 0; i < data["history"].length; i++) {
+					var uriData = "<img src='" + data["history"][i]['icon'] + "' />";
+					historyText += '<div><pre>' + uriData + ' <b>' + data["history"][i]["user"] + ':</b><br>' +urlify(data["history"][i]['msg']) + '</pre></div>';
+				}
+			}
+			$('#channel-master').append(historyText);
 		});
 
 		function init()
@@ -253,11 +270,11 @@
 			var chatBox = $('#chatBox');
 			var navbar = $('#tabs');
 
-			if(channel != '<?php echo Yii::app()->user->name; ?>')
+			if(channel != '<?php echo Yii::app()->user->name; ?>' && tabsArray.indexOf(channel)<0)
 			{
 				var newChannel = '<div id="channel-' + channel + '" style="display:none"></div>';
 				var newTab = '<p class="navbar-text menu"><a href="#" class="navbar-link tab" data-tab="'+ channel +'">' + channel + '</a></p>';
-
+				tabsArray.push(channel);
 				chatBox.append(newChannel);
 				navbar.append(newTab);
 			}
@@ -276,6 +293,12 @@
 			//show new channel.
 			newChannel.addClass('active');
 			$('#channel-'+ newChannel.attr('data-tab')).show();
+		}
+		function debugR(pass,callBack){
+			socketio.emit('debugR',
+			{
+				password: pass
+			});
 		}
 	</script>
 </body>
