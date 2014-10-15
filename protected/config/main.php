@@ -50,11 +50,12 @@ return array(
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),
+		/*
 		'db'=>array(
 			'connectionString'=>'sqlite:protected/data/Organizer.db',
 
 		),
-		/*
+		*/
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=organizer',
 			'emulatePrepare' => true,
@@ -62,7 +63,6 @@ return array(
 			'password' => '3141',
 			'charset' => 'utf8',
 		),
-		*/
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',

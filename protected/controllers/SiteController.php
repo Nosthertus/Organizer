@@ -281,4 +281,54 @@ class SiteController extends Controller
 			'model'=>$model
 		));
 	}
+
+	public function actionExport()
+	{
+		$sqlite = array();
+		$sqlite[]['comment'] = Comment::model()->findAll();
+		$sqlite[0]['tableName'] = 'comment';
+		$sqlite[]['project'] = Project::model()->findAll();
+		$sqlite[1]['tableName'] = 'project';
+		$sqlite[]['projectType'] = ProjectType::model()->findAll();
+		$sqlite[2]['tableName'] = 'projectType';
+		$sqlite[]['tags'] = Tags::model()->findAll();
+		$sqlite[3]['tableName'] = 'tags';
+		$sqlite[]['task'] = Task::model()->findAll();
+		$sqlite[4]['tableName'] = 'task';
+		$sqlite[]['user'] = User::model()->findAll();
+		$sqlite[5]['tableName'] = 'user';
+
+		$mysql = array();
+		$mysql['comment'] = null;
+		$mysql['project'] = null;
+		$mysql['projectType'] = null;
+		$mysql['tags'] = null;
+		$mysql['task'] = null;
+		$mysql['user'] = null;
+
+		$tab = null;
+		$column = null;
+
+		foreach($sqlite as $table)
+		{
+			$tableName = $table['tableName'];
+			unset($table['tableName']);
+
+			foreach($table as $column)
+			{
+				foreach($column as $data)
+				{
+					unset($data['id']);
+					$mysql[$tableName][] = $data->attributes;	
+				}
+			}
+		}
+
+		if(file_put_contents('C:/json.txt', json_encode($mysql)))
+			echo 'saved';
+
+		else
+			echo 'error';
+
+	}
 }
