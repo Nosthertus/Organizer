@@ -34,6 +34,16 @@ Class ProjectController extends Controller
 
 			if($model->save())
 			{
+				// Notify all users by email
+				$users = User::model()->getallEmails();
+
+				$message = '<b>'.Yii::app()->user->username.'</b> has Added a new project, go to project: <br>'.CHtml::link($model->Name, $this->createAbsoluteUrl('/project/view', array('id'=>$model->id)));
+
+				$this->mail($users,
+					'A new project has been added',
+					$message
+				);
+
 				//Check whenever modules are added in the form.
 				if(isset($_POST['module']))
 				{
