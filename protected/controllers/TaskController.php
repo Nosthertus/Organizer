@@ -75,6 +75,30 @@ Class TaskController extends Controller
 
 			if($_model->save())
 			{
+				$username = Yii::app()->user->username;
+
+				$assignedId = $this->explodeByComma($model->Assigned);
+
+				if($assignedId)
+				{
+					$assigned = array();
+					foreach($assignedId as $data)
+					{
+						$userMail = User::model()->findByPk($data)->email;
+						$assigned = $userMail;
+					}
+				}
+
+				if(!$assignedId)
+					$assigned = User::model()->findByPk($model->Assigned)->email;
+
+				$message = '<b>'.$username.'</b> has commented in your task:<br>'.CHtml::link($model->Name, $this->createAbsoluteUrl('/task/view', array('id'=>$model->id)));
+
+				$this->mail($assigned,
+					'New comment in your assigned task',
+					$message
+				);
+
 				$this->refresh();
 			}
 		}
@@ -141,7 +165,6 @@ Class TaskController extends Controller
 					$address = $_POST['Task']['Assigned'];
 
 				$this->Mail($address,
-					'Stranded Grounds - Organizer',
 					'Task Update',
 					$message
 				);
@@ -237,7 +260,6 @@ Class TaskController extends Controller
 						$address = $_POST['Task']['Assigned'];
 
 					$this->Mail($address,
-						'Stranded Grounds - Organizer',
 						'New Task Assigned',
 						$message
 					);
