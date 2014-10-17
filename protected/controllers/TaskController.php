@@ -121,7 +121,33 @@ Class TaskController extends Controller
 			$model->Update_time = date('YmdHi');
 
 			if($model->save())
+			{
+				$username = User::model()->findByPk(Yii::app()->user->getId())->username;
+				$message = '<b>'.$username.'</b> has updated the task you were assigned, to see the changes click the next link:<br>'.CHtml::link($model->Name, $this->createAbsoluteUrl('task/view', array('id'=>$model->id)));
+
+				if(is_array($array))
+				{
+					$address = array();
+
+					foreach($array as $data)
+					{
+						$userMail = User::model()->findByPk($data)->email;
+
+						$address[] = $userMail;
+					}
+				}
+
+				if(!is_array($array))
+					$address = $_POST['Task']['Assigned'];
+
+				$this->Mail($address,
+					'Stranded Grounds - Organizer',
+					'Task Update',
+					$message
+				);
+					
 				$this->redirect(array('/task/view', 'id'=>$model->id));
+			}
 		}
 
 		$model->Assigned = explode(',', $model->Assigned);
@@ -275,6 +301,30 @@ Class TaskController extends Controller
 
 				if($model->save())
 				{
+					$username = User::model()->findByPk(Yii::app()->user->getId())->username;
+					$message = '<b>'.$username.'</b> has assigned a new task for you, to see the new task click the next link: <br>'.CHtml::link($model->Name, $this->createAbsoluteUrl('task/view', array('id'=>$model->id)));
+
+					if(is_array($array))
+					{
+						$address = array();
+
+						foreach($array as $data)
+						{
+							$userMail = User::model()->findByPk($data)->email;
+
+							$address[] = $userMail;
+						}
+					}
+
+					if(!is_array($array))
+						$address = $_POST['Task']['Assigned'];
+
+					$this->Mail($address,
+						'Stranded Grounds - Organizer',
+						'New Task Assigned',
+						$message
+					);
+					
 					$this->redirect(array('/Task'));
 				}
 			}
