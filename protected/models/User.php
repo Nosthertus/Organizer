@@ -78,6 +78,18 @@ class User extends CActiveRecord
 		return uniqid('', true);
 	}
 
+	public function getAllEmails()
+	{
+		$users = $this->findAll();
+
+		$user = array();
+
+		foreach($user as $data)
+			$user[] = $data->email;
+
+		return $user;
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 *
