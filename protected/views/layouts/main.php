@@ -43,7 +43,6 @@ else
 				$this->widget('zii.widgets.CMenu', array(
 					'htmlOptions'=>array('class'=>'nav navbar-nav'),
 					'items'=>array(
-						array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
 						array('label'=>'Contact', 'url'=>array('/site/contact')),
 						array('label'=>'Tags', 'url'=>array('/tags/index')),
 						array('label'=>'Chat', 'url'=>'#', 'linkOptions'=>array('onClick'=>'Popup();'), 'visible'=>!Yii::app()->user->isGuest)
@@ -90,17 +89,17 @@ else
 	<script type="text/javascript">
 	function Popup()
 	{
-		var winHeight = 2000,
-			winWidth = 2000,
-			winPosX = 10,
-			winPosY = 10;
+		alert('Under Maintenance');
+		// var winHeight = 2000,
+		// 	winWidth = 2000,
+		// 	winPosX = 10,
+		// 	winPosY = 10;
 
-		newwind = window.open("<?php echo Yii::app()->request->baseUrl; ?>/site/chat","NewPop",
-			'fullscreen=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no');
+		// newwind = window.open("<?php echo Yii::app()->request->baseUrl; ?>/site/chat","NewPop",
+		// 	'fullscreen=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no');
 
-		newwind;
-		// newwind.resizeTo(winHeight, winWidth);
-		// newwind.moveTo(winPosX, winPosY);
+		// newwind;
+
 	}
 	</script>
 </body>

@@ -44,7 +44,6 @@ class Controller extends CController
 				$_model->save();
 			}
 		}
-
 		parent::init();
 	}
 
@@ -148,5 +147,29 @@ class Controller extends CController
 
 		else
 			return false;
+	}
+
+	// Sends mail
+	public function Mail($email = null, $name = null, $subject, $message)
+	{
+		if(!$email)
+			$mail = Yii::app()->params['adminEmail'];
+
+		else
+		{
+			if(is_array($email))
+				$mail = implode(', ', $email);
+
+			else
+				$mail = $email;
+		}
+
+		$subject = '=?UTF-8?B?'.base64_encode($subject).'?=';
+		$headers = "From: ".$name."\r\n".
+					"Reply-To: ".Yii::app()->params['noreplyMail']."\r\n".
+					"MIME-Version: 1.0\r\n".
+					"Content-Type: text/html; charset=ISO-8859-1\r\n";
+
+		mail($mail, $subject, $message, $headers);
 	}
 }

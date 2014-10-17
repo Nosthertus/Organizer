@@ -8,7 +8,7 @@ class GdGenerator extends BaseGenerator implements GeneratorInterface
     public function __construct()
     {
         if (!extension_loaded('gd')) {
-            throw new \Exception('GD does not appear to be avaliable in your PHP installation. Please try another generator');
+            throw new Exception('GD does not appear to be avaliable in your PHP installation. Please try another generator');
         }
     }
 
