@@ -1,3 +1,5 @@
+<?php Yii::app()->getClientScript()->registerScriptFile(Yii::app()->request->baseUrl.'/js/Options.js'); ?>
+
 <?php echo CHtml::image(YiiIdenticon::getImageDataUri($model->id), $model->username); ?>
 <h1>Options</h1>
 <hr>
@@ -12,7 +14,7 @@
 )); ?>
 
 <?php //echo CHtml::Button('Change Email', array('class'=>'btn btn-default')); ?> 	
-<?php echo CHtml::ajaxLink('Change Email', array('', 'id'=>$model->id, 'Email'=>true), array('update'=>'#option'), array('class'=>'btn btn-default')); ?>	
+<?php echo CHtml::ajaxLink('Email Options', array('', 'id'=>$model->id, 'Email'=>true), array('update'=>'#option'), array('class'=>'btn btn-default')); ?>	
 <?php echo CHtml::ajaxLink('Change Password', array('', 'id'=>$model->id, 'Password'=>true), array('update'=>'#option'), array('class'=>'btn btn-default')); ?>	
 <?php echo CHtml::ajaxLink('Favorite Tags', array('', 'id'=>$model->id, 'Tags'=>true), array('update'=>'#option'), array('class'=>'btn btn-default')); ?>	
 <br><br>

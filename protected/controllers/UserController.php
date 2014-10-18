@@ -30,7 +30,7 @@ class UserController extends Controller
 		{
 			$model = $this->loadModel($id);
 
-			if(isset($_POST['User']))
+			if(isset($_POST['User']['email']))
 			{
 				$model->attributes = $_POST['User'];
 
@@ -42,8 +42,26 @@ class UserController extends Controller
 				}
 			}
 
+			if(isset($_POST['User']['emailNotification']))
+			{
+				$model->attributes = $_POST['User'];
+
+				$model->ProjectNotification = $_POST['User']['ProjectNotification'];
+				$model->NewTaskNotification = $_POST['User']['NewTaskNotification'];
+				$model->UpdatedTaskNotification = $_POST['User']['UpdatedTaskNotification'];
+				$model->CommentedTaskNotification = $_POST['User']['CommentedTaskNotification'];
+
+				if($model->save())
+				{
+					$this->redirect(array('view',
+						'id'=>$model->id
+					));
+				}
+			}
+
 			$this->renderPartial('Email', array(
-				'model'=>$model
+				'model'=>$model,
+				'checked'=>User::model()->ListNotification($id)
 			));
 			Yii::app()->end();
 		}

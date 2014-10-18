@@ -30,11 +30,11 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, password, email', 'required'),
+			array('username, password, email, emailNotification', 'required'),
 			array('username, password, email', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, username, password, email', 'safe', 'on'=>'search'),
+			array('id, username, password, email, emailNotification', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,6 +60,11 @@ class User extends CActiveRecord
 			'username' => 'Username',
 			'password' => 'Password',
 			'email' => 'Email',
+			'emailNotification' => 'Email Notification',
+			'ProjectNotification' => 'Project Notification',
+			'NewTaskNotification' => 'New Task Notification',
+			'UpdatedTaskNotification' => 'Updated Task Notification',
+			'CommentedTaskNotification' => 'Commented Task Notification',
 		);
 	}
 
@@ -88,6 +93,27 @@ class User extends CActiveRecord
 			$user[] = $data->email;
 
 		return $user;
+	}
+
+	public function ListNotification($id)
+	{
+		$list = array();
+
+		$user = $this->findByPk($id);
+
+		if($user->ProjectNotification == '1')
+			$list[] = 0;
+
+		if($user->NewTaskNotification == '1')
+			$list[] = 1;
+
+		if($user->UpdatedTaskNotification == '1')
+			$list[] = 2;
+
+		if($user->CommentedTaskNotification == '1')
+			$list[] = 3;
+
+		return $list;
 	}
 
 	/**
