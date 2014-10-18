@@ -84,8 +84,14 @@ Class TaskController extends Controller
 					$assigned = array();
 					foreach($assignedId as $data)
 					{
-						$userMail = User::model()->findByPk($data)->email;
-						$assigned = $userMail;
+						$notification = User::model()->getEmailNotification(array(
+							'id'=>$data,
+							'Notification'=>'CommentedTaskNotification'
+						));
+
+						if($notification)
+							$assigned = $notification;
+
 					}
 				}
 
@@ -155,9 +161,14 @@ Class TaskController extends Controller
 
 					foreach($array as $data)
 					{
-						$userMail = User::model()->findByPk($data)->email;
+						// $userMail = User::model()->findByPk($data)->email;
+						$notification = User::model()->getEmailNotification(array(
+							'id'=>$data,
+							'Notification'=>'UpdatedTaskNotification'
+						));
 
-						$address[] = $userMail;
+						if($notification)
+							$address[] = $notification;
 					}
 				}
 
@@ -250,9 +261,13 @@ Class TaskController extends Controller
 
 						foreach($array as $data)
 						{
-							$userMail = User::model()->findByPk($data)->email;
+							$notification = User::model()->getEmailNotification(array(
+								'id'=>$data,
+								'Notification'=>'NewTaskNotification'
+							));
 
-							$address[] = $userMail;
+							if($notification)
+								$address[] = $notification;
 						}
 					}
 
@@ -332,9 +347,13 @@ Class TaskController extends Controller
 
 						foreach($array as $data)
 						{
-							$userMail = User::model()->findByPk($data)->email;
+							$notification = User::model()->getEmailNotification(array(
+								'id'=>$data,
+								'Notification'=>'NewTaskNotification'
+							));
 
-							$address[] = $userMail;
+							if($notification)
+								$address[] = $notification;
 						}
 					}
 

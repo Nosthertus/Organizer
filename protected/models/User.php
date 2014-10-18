@@ -116,6 +116,33 @@ class User extends CActiveRecord
 		return $list;
 	}
 
+	//Check if user is able to recieve the especific notification.
+	public function getEmailNotification($user = array('id'=>null, 'Notification'))
+	{
+		if(isset($user['id']))
+		{
+			$userData = $this->findByPk($user['id']);
+
+			if($userData['emailNotification'] == '1' && $userData[$user['Notification']] == '1')
+				return $userData->email;
+		}
+
+		else
+		{
+			$usersData = $this->findAll();
+
+			$emails = array();
+			foreach($usersData as $data)
+			{
+				if($data['emailNotification'] == '1' && $data[$user['Notification']] == '1')
+					$emails[] = $data->email;
+			}
+
+			return $emails;
+		}
+
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 *
