@@ -13,7 +13,7 @@ Class ProjectController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create', 'view'),
+				'actions'=>array('create', 'view', 'type'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -34,6 +34,16 @@ Class ProjectController extends Controller
 
 			if($model->save())
 			{
+				// Notify all users by email
+				$users = User::model()->getEmailNotification(array('Notification'=>'ProjectNotification'));
+
+				$message = '<b>'.Yii::app()->user->username.'</b> has Added a new project, go to project: <br>'.CHtml::link($model->Name, $this->createAbsoluteUrl('/project/view', array('id'=>$model->id)));
+
+				$this->mail($users,
+					'A new project has been added',
+					$message
+				);
+
 				//Check whenever modules are added in the form.
 				if(isset($_POST['module']))
 				{
@@ -94,6 +104,15 @@ Class ProjectController extends Controller
 		$this->layout = 'column2';
 
 		$this->render('view', array('model'=>$model, 'dataProvider'=>$dataProvider));
+	}
+
+	public function actionType()
+	{
+		$model = new ProjectType;
+
+		$this->render('Type', array(
+			'model'=>$model
+		));
 	}
 
 	public function loadModel($id)

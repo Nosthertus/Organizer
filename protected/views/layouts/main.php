@@ -45,7 +45,8 @@ else
 					'items'=>array(
 						array('label'=>'Contact', 'url'=>array('/site/contact')),
 						array('label'=>'Tags', 'url'=>array('/tags/index')),
-						array('label'=>'Chat', 'url'=>'#', 'linkOptions'=>array('onClick'=>'Popup();'), 'visible'=>!Yii::app()->user->isGuest)
+						array('label'=>'Chat', 'url'=>'#', 'linkOptions'=>array('onClick'=>'Popup();'), 'visible'=>!Yii::app()->user->isGuest),
+						array('label'=>'Test', 'url'=>array('/test/index'))
 					)
 				));
 
@@ -62,6 +63,7 @@ else
 							'submenuOptions'=>array('class'=>'dropdown-menu'),
 							'linkOptions'=>array('class'=>'dropdown-toggle', 'data-toggle'=>'dropdown'), 
 							'items'=>array(
+								array('label'=>'Options', 'url'=>array('/user/view', 'id'=>Yii::app()->user->getId())),
 								array('label'=>'Logout', 'url'=>array('/site/logout'))
 							)
 						)

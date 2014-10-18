@@ -150,7 +150,7 @@ class Controller extends CController
 	}
 
 	// Sends mail
-	public function Mail($email = null, $name = null, $subject, $message)
+	public function Mail($email = null, $subject, $message)
 	{
 		if(!$email)
 			$mail = Yii::app()->params['adminEmail'];
@@ -163,6 +163,8 @@ class Controller extends CController
 			else
 				$mail = $email;
 		}
+
+		$name = 'Stranded Grounds - Organizer';
 
 		$subject = '=?UTF-8?B?'.base64_encode($subject).'?=';
 		$headers = "From: ".$name."\r\n".

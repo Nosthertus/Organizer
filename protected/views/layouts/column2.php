@@ -31,7 +31,7 @@
 			));
 			?>
 		</div>
-		<?php endif; ?>
 	</div>
+	<?php endif; ?>
 </div>
 <?php $this->endContent(); ?>
