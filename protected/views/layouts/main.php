@@ -46,7 +46,6 @@ else
 						array('label'=>'Contact', 'url'=>array('/site/contact')),
 						array('label'=>'Tags', 'url'=>array('/tags/index')),
 						array('label'=>'Chat', 'url'=>'#', 'linkOptions'=>array('onClick'=>'Popup();'), 'visible'=>!Yii::app()->user->isGuest),
-						array('label'=>'Test', 'url'=>array('/test/index'))
 					)
 				));
 
