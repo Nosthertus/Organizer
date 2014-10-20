@@ -125,6 +125,9 @@ class User extends CActiveRecord
 
 			if($userData['emailNotification'] == '1' && $userData[$user['Notification']] == '1')
 				return $userData->email;
+
+			else
+				return null;
 		}
 
 		else
