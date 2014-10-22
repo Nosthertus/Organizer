@@ -40,7 +40,6 @@
 						array('label'=>'Contact', 'url'=>array('/site/contact')),
 						array('label'=>'Tags', 'url'=>array('/tags/index')),
 						array('label'=>'Chat', 'url'=>'#', 'linkOptions'=>array('onClick'=>'Popup();'), 'visible'=>!Yii::app()->user->isGuest),
-						array('label'=>'Test', 'url'=>array('/test/index'))
 					)
 				));
 
@@ -67,12 +66,8 @@
 			</div><!--/.nav-collapse -->
 		</div>
 	</div>
-
-	<div class="container">
 		
-		<?php echo $content; ?>
-
-	</div><!-- /.container -->
+	<?php echo $content; ?>
 
 
 	<div class="clear"></div>

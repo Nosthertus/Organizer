@@ -93,3 +93,25 @@ div.box
 	background-color: #222222;
 	border-color: #000000;
 }
+.vertical-options
+{
+	margin-top: -20px;
+	height: 93.5vh;
+	padding: unset;
+}
+.vertical-options .nav>li>a
+{
+	width: 100%;
+	color: #999;
+}
+.vertical-options .nav>li>a:hover
+{
+	text-decoration: none;
+	color: #fff;
+	background: linear-gradient(to right, #222222 0%,#000000 100%);
+}
+.vertical-options .nav>li>a:focus
+{
+	color: #fff;
+	background: linear-gradient(to right, #222222 0%,#000000 100%);
+}
