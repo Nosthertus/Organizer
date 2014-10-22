@@ -72,12 +72,8 @@ else
 			</div><!--/.nav-collapse -->
 		</div>
 	</div>
-
-	<div class="container">
 		
-		<?php echo $content; ?>
-
-	</div><!-- /.container -->
+	<?php echo $content; ?>
 
 
 	<div class="clear"></div>

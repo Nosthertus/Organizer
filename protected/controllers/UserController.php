@@ -80,6 +80,8 @@ class UserController extends Controller
 
 		$model = $this->loadModel($id);
 
+		$this->layout = '//layouts/column3';
+
 		$this->render('view', array(
 			'model'=>$model,
 		));
