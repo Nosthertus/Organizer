@@ -108,10 +108,12 @@ div.box
 {
 	text-decoration: none;
 	color: #fff;
-	background: linear-gradient(to right, #222222 0%,#000000 100%);
+	background: linear-gradient(to left, #222222 0%,#000000 100%);
 }
-.vertical-options .nav>li>a:focus
+.vertical-options .nav>li>a:focus, .vertical-options .nav>li>a.active
 {
+	/*color: #fff;
+	background: linear-gradient(to left, #222222 0%,#000000 100%);*/
 	color: #fff;
-	background: linear-gradient(to right, #222222 0%,#000000 100%);
+	background-color: #080808;
 }

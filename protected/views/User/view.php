@@ -40,5 +40,5 @@
 		'email'
 	),
 )); ?>
-<br><br>
+<hr>
 <div id="option"></div>
