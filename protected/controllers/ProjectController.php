@@ -5,7 +5,7 @@ Class ProjectController extends Controller
 	{
 		return array(
 			'accessControl',
-			'postOnly + delete'
+			'postOnly + delete, initiate'
 		);
 	}
 
@@ -13,7 +13,7 @@ Class ProjectController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create', 'view', 'type'),
+				'actions'=>array('create', 'view', 'type', 'initiate'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -138,6 +138,45 @@ Class ProjectController extends Controller
 			$_model->status = 0;
 
 			$_model->save();
+		}
+	}
+
+	// Initiate the project.
+	// This can only be requested via POST.
+	public function actionInitiate()
+	{
+		if(isset($_POST['project']))
+		{
+			$model = Project::model()->findByAttributes(array(
+				'Name'=>$_POST['project']
+			));
+
+			$status = array('status' => null, 'data' => null, 'url' => null, 'error' => null);
+
+			if($model)
+			{
+				$model->Status = 3;
+
+				if($model->save())
+				{
+					$status['status'] = true;
+					$status['data'] = 'Project initiated, proceed to redirect';
+					$status['url'] = $this->createAbsoluteUrl('/project/view', array('id'=>$model->id));
+					$status['error'] = null;
+				}
+
+				else
+				{
+					$status['status'] = false;
+					$status['data'] = 'Error';
+					$status['error'] = 'Could not save the changes on database';
+				}
+
+				echo json_encode($status);
+			}
+
+			else
+				throw new CHttpException(404, 'Error');
 		}
 	}
 }
