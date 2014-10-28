@@ -59,6 +59,9 @@ $(document).ready(function()
 			}
 		}
 
+		else
+			return true;
+
 		return false;
 	});
 });
