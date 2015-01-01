@@ -26,12 +26,13 @@ $this->menu = array(
 					'data'=>array(
 						'type_id'=>'js:this.value'
 					)
-				)
+				),
+				'class'=>'form-control'
 			)
 		);
+		echo '<br>';
 	}
 ?>
-
 <div id="Projects">
 	<?php
 	$this->widget('zii.widgets.CListView', array(

@@ -86,16 +86,15 @@ else
 	<script type="text/javascript">
 	function Popup()
 	{
-		alert('Under Maintenance');
-		// var winHeight = 2000,
-		// 	winWidth = 2000,
-		// 	winPosX = 10,
-		// 	winPosY = 10;
+		var winHeight = 2000,
+			winWidth = 2000,
+			winPosX = 10,
+			winPosY = 10;
 
-		// newwind = window.open("<?php echo Yii::app()->request->baseUrl; ?>/site/chat","NewPop",
-		// 	'fullscreen=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no');
+		newwind = window.open("<?php echo Yii::app()->request->baseUrl; ?>/site/chat","NewPop",
+			'fullscreen=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no');
 
-		// newwind;
+		newwind;
 
 	}
 	</script>
