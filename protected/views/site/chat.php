@@ -24,7 +24,11 @@
 		<div class="container">
 			<div class="navbar-header" id="tabs">
 				<a class="navbar-brand" href="#"><?php echo CHtml::encode(Yii::app()->name); ?></a>
-				<p class="navbar-text menu"><a href="#" class="navbar-link tab active" data-tab="master">Master</a></p>
+				<ul class="nav navbar-nav">
+					<li class="active" data-tab="master">
+						<a href="#">Master</a>
+					</li>
+				</ul>
 			</div>
 		</div>
 	</div>
@@ -131,9 +135,6 @@
 					test: 'test'
 				}
 			);
-
-			console.log('sending: <?php echo YiiIdenticon::getImageDataUri(Yii::app()->user->getId(), 20); ?>');
-
 			$('#Message').attr('placeholder', 'Message');
 			$('#Message').attr('disabled', false);
 		}
