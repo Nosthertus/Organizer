@@ -36,17 +36,16 @@ else
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="<?php echo Yii::app()->createUrl('site/index');?>"><?php echo CHtml::encode(Yii::app()->name); ?></a>
+				<a class="navbar-brand" href="<?php echo Yii::app()->baseUrl;?>"><?php echo CHtml::encode(Yii::app()->name); ?></a>
 			</div>
 			<div class="collapse navbar-collapse">
 				<?php
 				$this->widget('zii.widgets.CMenu', array(
 					'htmlOptions'=>array('class'=>'nav navbar-nav'),
 					'items'=>array(
-						array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
 						array('label'=>'Contact', 'url'=>array('/site/contact')),
 						array('label'=>'Tags', 'url'=>array('/tags/index')),
-						array('label'=>'Chat', 'url'=>'#', 'linkOptions'=>array('onClick'=>'Popup();'), 'visible'=>!Yii::app()->user->isGuest)
+						array('label'=>'Chat', 'url'=>'#', 'linkOptions'=>array('onClick'=>'Popup();'), 'visible'=>!Yii::app()->user->isGuest),
 					)
 				));
 
@@ -63,6 +62,7 @@ else
 							'submenuOptions'=>array('class'=>'dropdown-menu'),
 							'linkOptions'=>array('class'=>'dropdown-toggle', 'data-toggle'=>'dropdown'), 
 							'items'=>array(
+								array('label'=>'Options', 'url'=>array('/user/view', 'id'=>Yii::app()->user->getId())),
 								array('label'=>'Logout', 'url'=>array('/site/logout'))
 							)
 						)
@@ -72,12 +72,8 @@ else
 			</div><!--/.nav-collapse -->
 		</div>
 	</div>
-
-	<div class="container">
 		
-		<?php echo $content; ?>
-
-	</div><!-- /.container -->
+	<?php echo $content; ?>
 
 
 	<div class="clear"></div>
@@ -99,8 +95,7 @@ else
 			'fullscreen=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no');
 
 		newwind;
-		// newwind.resizeTo(winHeight, winWidth);
-		// newwind.moveTo(winPosX, winPosY);
+
 	}
 	</script>
 </body>

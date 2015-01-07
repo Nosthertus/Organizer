@@ -1,6 +1,8 @@
 <?php
 /* @var $this SiteController */
 
+Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/main.js');
+
 $this->pageTitle=Yii::app()->name;
 ?>
 
@@ -24,12 +26,13 @@ $this->menu = array(
 					'data'=>array(
 						'type_id'=>'js:this.value'
 					)
-				)
+				),
+				'class'=>'form-control'
 			)
 		);
+		echo '<br>';
 	}
 ?>
-
 <div id="Projects">
 	<?php
 	$this->widget('zii.widgets.CListView', array(
@@ -40,25 +43,3 @@ $this->menu = array(
 	));
 	?>
 </div>
-
-<script type="text/javascript">
-function Check(Status)
-{
-	if(Status == '0')
-	{
-		var question = confirm("Are you sure you want to start this project?");
-
-		if(question == true)
-		{
-			console.log('True');
-			return true;
-		}
-
-		else
-		{
-			console.log('False');
-			return false;
-		}
-	}
-}
-</script>

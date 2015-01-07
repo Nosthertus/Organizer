@@ -30,11 +30,11 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, password, email', 'required'),
+			array('username, password, email, emailNotification', 'required'),
 			array('username, password, email', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, username, password, email', 'safe', 'on'=>'search'),
+			array('id, username, password, email, emailNotification', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,6 +60,11 @@ class User extends CActiveRecord
 			'username' => 'Username',
 			'password' => 'Password',
 			'email' => 'Email',
+			'emailNotification' => 'Email Notification',
+			'ProjectNotification' => 'Project Notification',
+			'NewTaskNotification' => 'New Task Notification',
+			'UpdatedTaskNotification' => 'Updated Task Notification',
+			'CommentedTaskNotification' => 'Commented Task Notification',
 		);
 	}
 
@@ -76,6 +81,69 @@ class User extends CActiveRecord
 	public function generateSalt()
 	{
 		return uniqid('', true);
+	}
+
+	public function getAllEmails()
+	{
+		$users = $this->findAll();
+
+		$user = array();
+
+		foreach($user as $data)
+			$user[] = $data->email;
+
+		return $user;
+	}
+
+	public function ListNotification($id)
+	{
+		$list = array();
+
+		$user = $this->findByPk($id);
+
+		if($user->ProjectNotification == '1')
+			$list[] = 0;
+
+		if($user->NewTaskNotification == '1')
+			$list[] = 1;
+
+		if($user->UpdatedTaskNotification == '1')
+			$list[] = 2;
+
+		if($user->CommentedTaskNotification == '1')
+			$list[] = 3;
+
+		return $list;
+	}
+
+	//Check if user is able to recieve the especific notification.
+	public function getEmailNotification($user = array('id'=>null, 'Notification'))
+	{
+		if(isset($user['id']))
+		{
+			$userData = $this->findByPk($user['id']);
+
+			if($userData['emailNotification'] == '1' && $userData[$user['Notification']] == '1')
+				return $userData->email;
+
+			else
+				return null;
+		}
+
+		else
+		{
+			$usersData = $this->findAll();
+
+			$emails = array();
+			foreach($usersData as $data)
+			{
+				if($data['emailNotification'] == '1' && $data[$user['Notification']] == '1')
+					$emails[] = $data->email;
+			}
+
+			return $emails;
+		}
+
 	}
 
 	/**

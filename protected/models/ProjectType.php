@@ -1,20 +1,20 @@
 <?php
 
 /**
- * This is the model class for table "projectType".
+ * This is the model class for table "projecttype".
  *
- * The followings are the available columns in table 'projectType':
+ * The followings are the available columns in table 'projecttype':
  * @property integer $id
  * @property string $name
  */
-class ProjectType extends CActiveRecord
+class Projecttype extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'projectType';
+		return 'projecttype';
 	}
 
 	/**
@@ -85,7 +85,7 @@ class ProjectType extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return ProjectType the static model class
+	 * @return Projecttype the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

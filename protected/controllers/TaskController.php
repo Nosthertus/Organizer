@@ -75,6 +75,36 @@ Class TaskController extends Controller
 
 			if($_model->save())
 			{
+				$username = Yii::app()->user->username;
+
+				$assignedId = $this->explodeByComma($model->Assigned);
+
+				if($assignedId)
+				{
+					$assigned = array();
+					foreach($assignedId as $data)
+					{
+						$notification = User::model()->getEmailNotification(array(
+							'id'=>$data,
+							'Notification'=>'CommentedTaskNotification'
+						));
+
+						if($notification)
+							$assigned = $notification;
+
+					}
+				}
+
+				if(!$assignedId)
+					$assigned = User::model()->findByPk($model->Assigned)->email;
+
+				$message = '<b>'.$username.'</b> has commented in your task:<br>'.CHtml::link($model->Name, $this->createAbsoluteUrl('/task/view', array('id'=>$model->id)));
+
+				$this->mail($assigned,
+					'New comment in your assigned task',
+					$message
+				);
+
 				$this->refresh();
 			}
 		}
@@ -121,7 +151,37 @@ Class TaskController extends Controller
 			$model->Update_time = date('YmdHi');
 
 			if($model->save())
+			{
+				$username = User::model()->findByPk(Yii::app()->user->getId())->username;
+				$message = '<b>'.$username.'</b> has updated the task you were assigned, to see the changes click the next link:<br>'.CHtml::link($model->Name, $this->createAbsoluteUrl('task/view', array('id'=>$model->id)));
+
+				if(is_array($array))
+				{
+					$address = array();
+
+					foreach($array as $data)
+					{
+						// $userMail = User::model()->findByPk($data)->email;
+						$notification = User::model()->getEmailNotification(array(
+							'id'=>$data,
+							'Notification'=>'UpdatedTaskNotification'
+						));
+
+						if($notification)
+							$address[] = $notification;
+					}
+				}
+
+				if(!is_array($array))
+					$address = $_POST['Task']['Assigned'];
+
+				$this->Mail($address,
+					'Task Update',
+					$message
+				);
+					
 				$this->redirect(array('/task/view', 'id'=>$model->id));
+			}
 		}
 
 		$model->Assigned = explode(',', $model->Assigned);
@@ -192,6 +252,33 @@ Class TaskController extends Controller
 
 				if($model->save())
 				{
+					$username = User::model()->findByPk(Yii::app()->user->getId())->username;
+					$message = '<b>'.$username.'</b> has assigned a new task for you, to see the new task click the next link: <br>'.CHtml::link($model->Name, $this->createAbsoluteUrl('task/view', array('id'=>$model->id)));
+
+					if(is_array($array))
+					{
+						$address = array();
+
+						foreach($array as $data)
+						{
+							$notification = User::model()->getEmailNotification(array(
+								'id'=>$data,
+								'Notification'=>'NewTaskNotification'
+							));
+
+							if($notification)
+								$address[] = $notification;
+						}
+					}
+
+					if(!is_array($array))
+						$address = $_POST['Task']['Assigned'];
+
+					$this->Mail($address,
+						'New Task Assigned',
+						$message
+					);
+					
 					$this->redirect(array('/project/'.$_POST['project']));
 				}
 			}
@@ -251,6 +338,34 @@ Class TaskController extends Controller
 
 				if($model->save())
 				{
+					$username = User::model()->findByPk(Yii::app()->user->getId())->username;
+					$message = '<b>'.$username.'</b> has assigned a new task for you, to see the new task click the next link: <br>'.CHtml::link($model->Name, $this->createAbsoluteUrl('task/view', array('id'=>$model->id)));
+
+					if(is_array($array))
+					{
+						$address = array();
+
+						foreach($array as $data)
+						{
+							$notification = User::model()->getEmailNotification(array(
+								'id'=>$data,
+								'Notification'=>'NewTaskNotification'
+							));
+
+							if($notification)
+								$address[] = $notification;
+						}
+					}
+
+					if(!is_array($array))
+						$address = $_POST['Task']['Assigned'];
+
+					$this->Mail($address,
+						'Stranded Grounds - Organizer',
+						'New Task Assigned',
+						$message
+					);
+					
 					$this->redirect(array('/Task'));
 				}
 			}

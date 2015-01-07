@@ -1,5 +1,9 @@
 <?php
 
+namespace Identicon\Generator;
+
+use Identicon\Generator\GeneratorInterface;
+
 /**
  * @author Benjamin Laugueux <benjamin@yzalis.com>
  */
@@ -186,7 +190,7 @@ class BaseGenerator
     public function setString($string)
     {
         if (null === $string) {
-            throw new Exception('The string cannot be null.');
+            throw new \Exception('The string cannot be null.');
         }
 
         $this->hash = md5($string);
