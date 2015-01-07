@@ -1,0 +1,9 @@
+{
+	"name": "organizerNode",
+	"description": "Node for realtime interactive task",
+	"author": "Nosthertus",
+	"dependencies":{
+		"socket.io": "*",
+		"escape-html": "*"
+	}
+}
