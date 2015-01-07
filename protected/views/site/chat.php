@@ -62,6 +62,7 @@
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 		var user = {
+			id: '<?php echo Yii::app()->user->getId(); ?>'
 			name: '<?php echo Yii::App()->user->name; ?>',
 			icon: '<?php echo YiiIdenticon::getImageDataUri(Yii::app()->user->getId(), 20); ?>'
 		};
