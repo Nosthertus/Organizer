@@ -12,13 +12,6 @@ $(document).ready(function(){
 	$(window).resize(function() {
 		window.scrollTo(0, document.body.scrollHeight);
 	});
-
-	$('#Message').keypress(function (event) {
-		if (event.keyCode == 13 && !event.shiftKey) {
-			send();
-			return false;
-		}
-	});
 });
 
 function sound(){
