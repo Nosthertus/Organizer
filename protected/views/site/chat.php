@@ -1,4 +1,6 @@
-<?php /* @var $this SiteController */ ?>
+<?php /* @var $this SiteController */ 
+	$icon = YiiIdenticon::getImageDataUri(Yii::app()->user->getId(), '20');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,6 +37,11 @@
 	<div id="module">
 		<div id="chat">
 			<div id="chatHistory">
+				<div class="well well-sm">
+					<?php echo CHtml::image($icon, ''); ?>
+					<b><?php echo Yii::app()->user->name; ?></b><br>
+					text
+				</div>
 			</div>
 			
 			<div class="navbar navbar-inverse" id="chatMenu">
@@ -67,7 +74,7 @@
 		var user = {
 			id: '<?php echo Yii::app()->user->getId(); ?>',
 			name: '<?php echo Yii::App()->user->name; ?>',
-			icon: '<?php echo YiiIdenticon::getImageDataUri(Yii::app()->user->getId(), 20); ?>'
+			icon: '<?php echo $icon; ?>'
 		};
 	</script>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/mainNode.js"></script>
