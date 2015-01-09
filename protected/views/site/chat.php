@@ -32,14 +32,17 @@
 			</div>
 		</div>
 	</div>
-	<div id="log">
+	<div id="module">
 		<div id="chat">
+			<div id="chatHistory">
+			</div>
+			
 			<div class="navbar navbar-inverse" id="chatMenu">
 				<div class="navbar-header">
 					<p class="navbar-text" id="Username"><span><?php echo CHtml::image(YiiIdenticon::getImageDataUri(Yii::app()->user->getId(), '20'), '').'</span> '.Yii::app()->user->name; ?></p>
 					<p class="navbar-text">[Icons and options HERE!]</p>
 				</div>
-				<?php echo CHtml::beginForm(null, 'post', array('id'=>'messageForm')); ?>
+				<?php echo CHtml::beginForm(null, 'post', array('id'=>'chatForm')); ?>
 					<div class="form-group col-md-12">
 						<?php echo CHtml::textArea('Message', '', array(
 							'class'=>'form-control',
@@ -62,11 +65,12 @@
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/dist/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 		var user = {
-			id: '<?php echo Yii::app()->user->getId(); ?>'
+			id: '<?php echo Yii::app()->user->getId(); ?>',
 			name: '<?php echo Yii::App()->user->name; ?>',
 			icon: '<?php echo YiiIdenticon::getImageDataUri(Yii::app()->user->getId(), 20); ?>'
 		};
 	</script>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/mainNode.js"></script>
+	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/socketControl.js"></script>
 </body>
 </html>
