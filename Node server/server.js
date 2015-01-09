@@ -51,6 +51,22 @@ var socket = io.sockets.on('connection', function(socket)
 	io.sockets.emit('connectionLog',{
 		user: user
 	});
+
+	socket.on('chatServer', function(data)
+	{
+		var message = data.message;
+
+		if(message.channel == 'master')
+		{
+			io.sockets.emit('chat',{
+				message: {
+					user: user,
+					content: message.value,
+					channel: message.channel
+				}
+			});
+		}
+	});
 });
 
 if(socket)

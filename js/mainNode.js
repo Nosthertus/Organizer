@@ -46,5 +46,26 @@ $(document).ready(function()
 			});
 		}
 	}
+
+	window.addMessage = function(element, subject, content, iconData)
+	{
+		var icon;
+		var message;
+
+		if(iconData)
+			icon = iconData;
+
+		else
+			icon = '';
+
+		message = '<div class="well well-sm">';
+		message += '<img alt="" src="' + icon + '"></img> ';
+		message += '<b>' + subject + '</b><br>';
+		message += content;
+		message += '</div>';
+
+		$(element).append(message);
+	}
+
 	handleSockets(socketio);
 });
