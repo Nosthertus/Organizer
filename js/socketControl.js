@@ -15,5 +15,6 @@ function handleSockets(socket)
 		var message = data.message;
 
 		addMessage('#chatHistory', message.user.name, message.content, message.user.icon);
+		$('#chatHistory').scrollTop($('#chatHistory').height());
 	});
 }
