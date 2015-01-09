@@ -76,6 +76,13 @@ div.box
 	/*background-color: blue;*/
 	border-radius: 0 0 0 0;
 }
+#users
+{
+	width: 128px;
+	height: 75vh;
+	background-color: #F5F5F5;
+	float: left;
+}
 #chatHistory
 {
 	overflow-y: scroll;

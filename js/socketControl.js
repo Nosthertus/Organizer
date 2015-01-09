@@ -1,5 +1,8 @@
 function handleSockets(socket)
 {
+	/*
+	*	Logging connection event
+	*/
 	socket.on('connectionLog', function(data)
 	{
 		if(data.user)
@@ -10,6 +13,23 @@ function handleSockets(socket)
 		}
 	});
 
+	/*
+	*	Server data event
+	*/
+	socket.on('serverData', function(data)
+	{
+		var users = data.users;
+		var list = '';
+
+		for(user in users)
+			list += '<li>' + users[user].client.name + '</li>';
+
+		$('#usersConnected').html('<ul>' + list + '</ul>');
+	});
+
+	/*
+	*	Chat data event
+	*/
 	socket.on('chat', function(data)
 	{
 		var message = data.message;

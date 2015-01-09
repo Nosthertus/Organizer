@@ -6,17 +6,10 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="en" />
-
-	<!-- blueprint CSS framework -->
-	<!--[if lt IE 8]>
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
-	<![endif]-->
-
+ 
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/dist/css/offcanvas.css" />
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/JQuery.js"></script>
-	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/text.js"></script>
-	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/sound.js"></script>
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
@@ -34,14 +27,15 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- Node module -->
 	<div id="module">
 		<div id="chat">
+			<div id="users">
+				<b>Connected</b>
+				<div id="usersConnected"></div>
+			</div>
 			<div id="chatHistory">
-				<div class="well well-sm">
-					<?php echo CHtml::image($icon, ''); ?>
-					<b><?php echo Yii::app()->user->name; ?></b><br>
-					text
-				</div>
 			</div>
 			
 			<div class="navbar navbar-inverse" id="chatMenu">
