@@ -54,7 +54,7 @@ $(document).ready(function()
 	/*
 	*	Add message to chat history
 	*/
-	window.addMessage = function(element, subject, content, iconData)
+	window.addMessage = function(element, subject, content, date, iconData)
 	{
 		var icon;
 		var message;
@@ -73,7 +73,12 @@ $(document).ready(function()
 						alt: '',
 						src: icon
 					}
-				}) + '<b>' + subject + '</b><br>' + content
+				}) + '<b>' + subject + '</b> ' + $.tagCreator({
+					span: {
+						class: 'text-muted',
+						content: parseDate(date)
+					}
+				}) + '<br>' + parseContent(content)
 			}
 		});
 	}
@@ -103,6 +108,51 @@ $(document).ready(function()
 			});
 		}	
 	};
+
+	/*
+	* Parse date
+	*/
+	function parseDate(date)
+	{
+		var d = new Date(date);
+
+		var time = '';
+
+		time += d.getFullYear();
+		time += '-';
+		time += d.getMonth() + 1;
+		time += '-';
+		time += d.getDate();
+		time += ' ';
+		time += d.getHours();
+		time += ':';
+		time += d.getMinutes();
+		time += ':';
+		time += d.getSeconds();
+
+		return time;
+	}
+
+	/*
+	*	Parse content that contains spaces and new lines
+	*/
+	function parseContent(text)
+	{
+		var total = '';
+		var newLines = /(?:\r\n|\r|\n)/g;
+		var spaces = /(?:\t)/g;
+
+		total += text.replace(
+            /((https?\:\/\/)|(www\.))(\S+)(\w{2,4})(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/gi,
+            function(url){
+                var full_url = url;
+                return '<a href="' + full_url + '">' + url + '</a>';
+            }
+        );
+
+
+		return total;
+	}
 
 	handleSockets(socketio);
 });

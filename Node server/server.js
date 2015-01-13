@@ -46,11 +46,13 @@ var socket = io.sockets.on('connection', function(socket)
 		icon: socket.handshake.query.icon
 	};
 
+
 	users.push({
 		client: user,
 		socket: {
 			id: socket.id,
-			remoteAddress: socket.client.conn.remoteAddress
+			remoteAddress: socket.client.conn.remoteAddress,
+			date: new Date().getTime()
 		}
 	});
 
@@ -60,13 +62,14 @@ var socket = io.sockets.on('connection', function(socket)
 	io.sockets.emit('Log',{
 		user: {
 			status: 'connect',
-			data: user
+			data: user,
+			date: new Date().getTime()
 		}
 	});
 
 	socket.emit('serverData',{
 		users: users,
-		chatHistory: history
+		chatHistory: history,
 	});
 
 	/*
@@ -78,7 +81,8 @@ var socket = io.sockets.on('connection', function(socket)
 		var log = {
 			user: user,
 			content: escape_html(message.value),
-			channel: message.channel
+			channel: message.channel,
+			date: new Date().getTime()
 		};
 
 		history.push(log);

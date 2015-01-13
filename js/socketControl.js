@@ -11,7 +11,7 @@ function handleSockets(socket)
 
 			if(user.status == 'connect')
 			{
-				addMessage('#chatHistory', 'System', user.data.name + ' Logged in.');
+				addMessage('#chatHistory', 'System', user.data.name + ' Logged in.', user.date);
 				addUserList(user.data);
 			}
 
@@ -42,7 +42,7 @@ function handleSockets(socket)
 		}
 
 		for(log in history)
-			addMessage('#chatHistory', history[log].user.name, history[log].content, history[log].user.icon);
+			addMessage('#chatHistory', history[log].user.name, history[log].content, history[log].date, history[log].user.icon);
 
 		$('#usersConnected').tagCreator({
 			ul: {
@@ -58,7 +58,7 @@ function handleSockets(socket)
 	{
 		var message = data.message;
 
-		addMessage('#chatHistory', message.user.name, message.content, message.user.icon);
+		addMessage('#chatHistory', message.user.name, message.content, message.date, message.user.icon);
 		$('#chatHistory').scrollTop($('#chatHistory').height());
 	});
 }
