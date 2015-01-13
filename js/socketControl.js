@@ -11,8 +11,8 @@ function handleSockets(socket)
 
 			if(user.status == 'connect')
 			{
-				addMessage('#chatHistory', 'System', user.name + ' Logged in.');
-				addUserList(user.name);
+				addMessage('#chatHistory', 'System', user.data.name + ' Logged in.');
+				addUserList(user.data);
 			}
 
 			if(user. status == 'disconnect')
@@ -28,12 +28,27 @@ function handleSockets(socket)
 	socket.on('serverData', function(data)
 	{
 		var users = data.users;
+		var history = data.chatHistory;
 		var list = '';
 
 		for(user in users)
-			list += '<li>' + users[user].client.name + '</li>';
+		{
+			list += $.tagCreator({
+				li: {
+					'data-id': users[user].client.id,
+					content: users[user].client.name
+				}
+			});
+		}
 
-		$('#usersConnected').html('<ul>' + list + '</ul>');
+		for(log in history)
+			addMessage('#chatHistory', history[log].user.name, history[log].content, history[log].user.icon);
+
+		$('#usersConnected').tagCreator({
+			ul: {
+				content: list
+			}
+		});
 	});
 
 	/*

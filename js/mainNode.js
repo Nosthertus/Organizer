@@ -78,13 +78,27 @@ $(document).ready(function()
 		});
 	}
 
-	window.addUserList = function(user)
+	window.addUserList = function(user, string)
 	{
-		$('#usersConnected ul').tagCreator({
-			li: {
-				content: user
-			}
-		});
+		if(!string)
+		{
+			$('#usersConnected ul').tagCreator({
+				li: {
+					content: user.name,
+					'data-id': user.id
+				}
+			});
+		}
+		
+		else
+		{
+			return $.tagCreator({
+				li: {
+					content: user.name,
+					'data-id': user.id
+				}
+			});
+		}	
 	};
 
 	handleSockets(socketio);

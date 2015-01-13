@@ -66,6 +66,7 @@ var socket = io.sockets.on('connection', function(socket)
 
 	socket.emit('serverData',{
 		users: users,
+		chatHistory: history
 	});
 
 	/*
@@ -74,15 +75,18 @@ var socket = io.sockets.on('connection', function(socket)
 	socket.on('chatServer', function(data)
 	{
 		var message = data.message;
+		var log = {
+			user: user,
+			content: message.value,
+			channel: message.channel
+		};
+
+		history.push(log);
 
 		if(message.channel == 'master')
 		{
 			io.sockets.emit('chat',{
-				message: {
-					user: user,
-					content: message.value,
-					channel: message.channel
-				}
+				message: log
 			});
 		}
 	});
