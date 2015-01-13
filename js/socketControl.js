@@ -1,15 +1,24 @@
 function handleSockets(socket)
 {
 	/*
-	*	Logging connection event
+	*	Logging event
 	*/
-	socket.on('connectionLog', function(data)
+	socket.on('Log', function(data)
 	{
 		if(data.user)
 		{
 			var user = data.user;
 
-			addMessage('#chatHistory', 'System', user.name + ' Logged in.');
+			if(user.status == 'connect')
+			{
+				addMessage('#chatHistory', 'System', user.name + ' Logged in.');
+				addUserList(user.name);
+			}
+
+			if(user. status == 'disconnect')
+			{
+				console.log('delete user data');
+			}
 		}
 	});
 

@@ -48,21 +48,29 @@ var socket = io.sockets.on('connection', function(socket)
 
 	users.push({
 		client: user,
-		socket: socket.id
+		socket: {
+			id: socket.id,
+			remoteAddress: socket.client.conn.remoteAddress
+		}
 	});
-
 
 	/*
 	*	Send information to sockets
 	*/
-	io.sockets.emit('connectionLog',{
-		user: user
+	io.sockets.emit('Log',{
+		user: {
+			status: 'connect',
+			data: user
+		}
 	});
 
 	socket.emit('serverData',{
 		users: users,
 	});
 
+	/*
+	*	Send chat message
+	*/
 	socket.on('chatServer', function(data)
 	{
 		var message = data.message;
@@ -80,14 +88,23 @@ var socket = io.sockets.on('connection', function(socket)
 	});
 
 	/*
-	*	Delete socket's info on disconnect
+	*	Delete socket's info on disconnect and send the log to all sockets
 	*/
 	socket.on('disconnect', function(data)
 	{
 		for(index in users)
 		{
-			if(users[index].socket == socket.id)
+			if(users[index].socket.id == socket.id)
+			{
+				io.sockets.emit('Log',{
+					user: {
+						status: 'disconnect',
+						data: user
+					}
+				});
+
 				users.splice(index, 1);
+			}
 		}
 	});
 });

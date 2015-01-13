@@ -31,13 +31,17 @@
 	<!-- Node module -->
 	<div id="module">
 		<div id="chat">
+			<!-- User list column -->
 			<div id="users">
 				<b>Connected</b>
 				<div id="usersConnected"></div>
 			</div>
+
+			<!-- Chat log column -->
 			<div id="chatHistory">
 			</div>
 			
+			<!-- Chat menu bar -->
 			<div class="navbar navbar-inverse" id="chatMenu">
 				<div class="navbar-header">
 					<p class="navbar-text" id="Username"><span><?php echo CHtml::image(YiiIdenticon::getImageDataUri(Yii::app()->user->getId(), '20'), '').'</span> '.Yii::app()->user->name; ?></p>
@@ -61,6 +65,7 @@
 	<!-- Bootstrap core JavaScript
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/tagCreator.js"></script>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/offcanvas.js"></script>
 	<script src="http://<?php echo Yii::app()->request->serverName; ?>:3000/socket.io/socket.io.js"></script>
 	<script src="<?php echo Yii::app()->request->baseUrl; ?>/dist/js/bootstrap.min.js"></script>

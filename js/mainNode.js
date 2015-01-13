@@ -36,6 +36,10 @@ $(document).ready(function()
 		}
 	});
 
+	
+	/*
+	*	Send data to server
+	*/
 	function submitToServer(module)
 	{
 		if(module.type == 'chat' && module.message.value != '')
@@ -47,6 +51,9 @@ $(document).ready(function()
 		}
 	}
 
+	/*
+	*	Add message to chat history
+	*/
 	window.addMessage = function(element, subject, content, iconData)
 	{
 		var icon;
@@ -58,14 +65,27 @@ $(document).ready(function()
 		else
 			icon = '';
 
-		message = '<div class="well well-sm">';
-		message += '<img alt="" src="' + icon + '"></img> ';
-		message += '<b>' + subject + '</b><br>';
-		message += content;
-		message += '</div>';
-
-		$(element).append(message);
+		$(element).tagCreator({
+			div: {
+				class: 'well well-sm',
+				content: $.tagCreator({
+					img:{
+						alt: '',
+						src: icon
+					}
+				}) + '<b>' + subject + '</b><br>' + content
+			}
+		});
 	}
+
+	window.addUserList = function(user)
+	{
+		$('#usersConnected ul').tagCreator({
+			li: {
+				content: user
+			}
+		});
+	};
 
 	handleSockets(socketio);
 });
