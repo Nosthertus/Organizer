@@ -15,9 +15,9 @@ function handleSockets(socket)
 				addUserList(user.data);
 			}
 
-			if(user. status == 'disconnect')
+			if(user.status == 'disconnect')
 			{
-				console.log('delete user data');
+				$('#usersConnected ul li[data-id="' + user.id + '"]').remove();
 			}
 		}
 	});

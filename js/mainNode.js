@@ -78,6 +78,9 @@ $(document).ready(function()
 		});
 	}
 
+	/*
+	*	Add users to list
+	*/
 	window.addUserList = function(user, string)
 	{
 		if(!string)
@@ -89,7 +92,7 @@ $(document).ready(function()
 				}
 			});
 		}
-		
+
 		else
 		{
 			return $.tagCreator({

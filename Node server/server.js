@@ -77,7 +77,7 @@ var socket = io.sockets.on('connection', function(socket)
 		var message = data.message;
 		var log = {
 			user: user,
-			content: message.value,
+			content: escape_html(message.value),
 			channel: message.channel
 		};
 
