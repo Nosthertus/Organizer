@@ -61,4 +61,14 @@ function handleSockets(socket)
 		addMessage('#chatHistory', message.user.name, message.content, message.date, message.user.icon);
 		$('#chatHistory').scrollTop($('#chatHistory').height());
 	});
+
+	/*
+	*	Disconnect event
+	*/
+
+	socket.on('disconnect', function(data)
+	{
+		deleteData();
+		addMessage('#chatHistory', 'System', 'You have been disconnected.', new Date().getTime());
+	});
 }

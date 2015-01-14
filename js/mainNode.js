@@ -109,6 +109,11 @@ $(document).ready(function()
 		}	
 	};
 
+	window.deleteData = function()
+	{
+		$('#usersConnected').children().remove();
+	};
+
 	/*
 	* Parse date
 	*/
@@ -138,20 +143,20 @@ $(document).ready(function()
 	*/
 	function parseContent(text)
 	{
-		var total = '';
-		var newLines = /(?:\r\n|\r|\n)/g;
-		var spaces = /(?:\t)/g;
+		var total = text;
+		var newLines = total.replace(/(?:\r\n|\r|\n)/g, '<br>');
+		var tabs = newLines.replace(/(?:\t)/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
 
-		total += text.replace(
+		var link = tabs.replace(
             /((https?\:\/\/)|(www\.))(\S+)(\w{2,4})(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/gi,
             function(url){
                 var full_url = url;
-                return '<a href="' + full_url + '">' + url + '</a>';
+                return '<a href="' + full_url + '" target="_blank">' + url + '</a>';
             }
         );
+	
 
-
-		return total;
+		return link;
 	}
 
 	handleSockets(socketio);
