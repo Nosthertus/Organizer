@@ -46,7 +46,6 @@ var socket = io.sockets.on('connection', function(socket)
 		icon: socket.handshake.query.icon
 	};
 
-
 	users.push({
 		client: user,
 		socket: {
@@ -107,10 +106,11 @@ var socket = io.sockets.on('connection', function(socket)
 				io.sockets.emit('Log',{
 					user: {
 						status: 'disconnect',
-						data: user
+						data: user,
+						date: new Date().getTime()
 					}
 				});
-
+				
 				users.splice(index, 1);
 			}
 		}

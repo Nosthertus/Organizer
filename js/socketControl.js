@@ -17,7 +17,8 @@ function handleSockets(socket)
 
 			if(user.status == 'disconnect')
 			{
-				$('#usersConnected ul li[data-id="' + user.id + '"]').remove();
+				addMessage('#chatHistory', 'System', user.data.name + ' Logged out.', user.date);
+				$('#usersConnected ul li a[data-id="' + user.data.id + '"]').remove();
 			}
 		}
 	});

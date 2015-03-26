@@ -96,7 +96,7 @@ $(document).ready(function()
 						a: {
 							href: 'javascript:void(0)',
 							'data-id': user.id,
-							content: user.name
+							content: parseIcon(user.icon) + ' ' + user.name
 						}
 					}),
 				}
@@ -111,12 +111,33 @@ $(document).ready(function()
 						a: {
 							href: 'javascript:void(0)',
 							'data-id': user.id,
-							content: user.name
+							content: parseIcon(user.icon) + ' ' + user.name
 						}
 					}),
 				}
 			});
 		}	
+	};
+
+	var parseIcon = function(uri, span)
+	{
+		var icon = $.tagCreator({
+			img: {
+				alt: '',
+				src: uri
+			}
+		});
+
+		if(span)
+		{
+			icon = $.tagCreator({
+				span: {
+					content: icon
+				}
+			});
+		}
+
+		return icon;
 	};
 
 	window.deleteData = function()
