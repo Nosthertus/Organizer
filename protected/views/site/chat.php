@@ -15,7 +15,7 @@
 </head>
 <body>
 
-	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="margin-bottom:0px;">
 		<div class="container">
 			<div class="navbar-header" id="tabs">
 				<a class="navbar-brand" href="#"><?php echo CHtml::encode(Yii::app()->name); ?></a>

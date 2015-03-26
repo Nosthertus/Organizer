@@ -65,6 +65,10 @@ div.box
 	border-width: 2px;
 	margin-bottom: 8px;
 }
+#module
+{
+	margin-top: -20px;
+}
 #chatMenu
 {
 	display: inline-block;
@@ -79,14 +83,34 @@ div.box
 #users
 {
 	width: 128px;
-	height: 75vh;
-	background-color: #F5F5F5;
+	height: 77.4vh;
+	background-color: #222222;
+	color: #99998B;
 	float: left;
+}
+#users ul li a:hover
+{
+	background-color: black;
+}
+#users ul li a:focus
+{
+	background-color: black;
+}
+#users ul li a
+{
+	color: #FFF;
+	border-bottom: 1px solid;
+	border-color: #000;
+}
+#users ul li ul
+{
+	display: none;
+	padding-left: 20px;
 }
 #chatHistory
 {
 	overflow-y: scroll;
-	height: 75vh;
+	height: 77.4vh;
 }
 .item-active
 {

@@ -33,12 +33,14 @@ function handleSockets(socket)
 
 		for(user in users)
 		{
-			list += $.tagCreator({
-				li: {
-					'data-id': users[user].client.id,
-					content: users[user].client.name
-				}
-			});
+			// list += $.tagCreator({
+			// 	li: {
+			// 		'data-id': users[user].client.id,
+			// 		content: users[user].client.name
+			// 	}
+			// });
+
+			list += window.addUserList(users[user].client, true);
 		}
 
 		for(log in history)
@@ -46,6 +48,7 @@ function handleSockets(socket)
 
 		$('#usersConnected').tagCreator({
 			ul: {
+				class: 'nav nav-stacked',
 				content: list
 			}
 		});

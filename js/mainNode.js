@@ -92,8 +92,13 @@ $(document).ready(function()
 		{
 			$('#usersConnected ul').tagCreator({
 				li: {
-					content: user.name,
-					'data-id': user.id
+					content: $.tagCreator({
+						a: {
+							href: 'javascript:void(0)',
+							'data-id': user.id,
+							content: user.name
+						}
+					}),
 				}
 			});
 		}
@@ -102,8 +107,13 @@ $(document).ready(function()
 		{
 			return $.tagCreator({
 				li: {
-					content: user.name,
-					'data-id': user.id
+					content: $.tagCreator({
+						a: {
+							href: 'javascript:void(0)',
+							'data-id': user.id,
+							content: user.name
+						}
+					}),
 				}
 			});
 		}	
