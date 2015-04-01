@@ -17,6 +17,19 @@ $(document).ready(function()
 		});
 		$('#Message').attr('placeholder', 'Message');
 		$('#Message').attr('disabled', false);
+
+
+		/*
+		*	Initialize popover
+		*/
+		$('body').popover(
+		{
+			trigger: 'focus',
+			placement: 'right',
+			content: 'test',
+			title: 'test',
+			selector: '[data-toggle="popover"]'
+		});
 	}
 
 	/*
@@ -35,7 +48,6 @@ $(document).ready(function()
 			return false;
 		}
 	});
-
 	
 	/*
 	*	Send data to server
@@ -96,7 +108,8 @@ $(document).ready(function()
 						a: {
 							href: 'javascript:void(0)',
 							'data-id': user.id,
-							content: parseIcon(user.icon) + ' ' + user.name
+							content: parseIcon(user.icon) + ' ' + user.name,
+							'data-toggle': 'popover'
 						}
 					}),
 				}
@@ -111,7 +124,8 @@ $(document).ready(function()
 						a: {
 							href: 'javascript:void(0)',
 							'data-id': user.id,
-							content: parseIcon(user.icon) + ' ' + user.name
+							content: parseIcon(user.icon) + ' ' + user.name,
+							'data-toggle': 'popover'
 						}
 					}),
 				}

@@ -34,13 +34,6 @@ function handleSockets(socket)
 
 		for(user in users)
 		{
-			// list += $.tagCreator({
-			// 	li: {
-			// 		'data-id': users[user].client.id,
-			// 		content: users[user].client.name
-			// 	}
-			// });
-
 			list += window.addUserList(users[user].client, true);
 		}
 
