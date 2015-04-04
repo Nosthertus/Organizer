@@ -65,6 +65,10 @@ div.box
 	border-width: 2px;
 	margin-bottom: 8px;
 }
+#module
+{
+	margin-top: -20px;
+}
 #chatMenu
 {
 	display: inline-block;
@@ -76,10 +80,37 @@ div.box
 	/*background-color: blue;*/
 	border-radius: 0 0 0 0;
 }
-#chatBox
+#users
+{
+	width: 128px;
+	height: 77.4vh;
+	background-color: #222222;
+	color: #99998B;
+	float: left;
+}
+#users ul li a:hover
+{
+	background-color: black;
+}
+#users ul li a:focus
+{
+	background-color: black;
+}
+#users ul li a
+{
+	color: #FFF;
+	border-bottom: 1px solid;
+	border-color: #000;
+}
+#users ul li ul
+{
+	display: none;
+	padding-left: 20px;
+}
+#chatHistory
 {
 	overflow-y: scroll;
-	margin-bottom:140px;
+	height: 77.4vh;
 }
 .item-active
 {
@@ -87,33 +118,19 @@ div.box
 	background-color: #222222;
 	border-color: #222222;
 }
-#statusBar
+a.active
 {
+	background-color: #000000;
 	color: #ffffff;
-	background-color: #222222;
-	border-color: #000000;
 }
-.vertical-options
+/*
+.menu
 {
-	margin-top: -20px;
-	height: 93.5vh;
-	padding: unset;
+	margin-left: 0px;
+	margin-right: 0px;
 }
-.vertical-options .nav>li>a
-{
-	width: 100%;
-	color: #999;
-}
-.vertical-options .nav>li>a:hover
-{
-	text-decoration: none;
-	color: #fff;
-	background: linear-gradient(to left, #222222 0%,#000000 100%);
-}
-.vertical-options .nav>li>a:focus, .vertical-options .nav>li>a.active
-{
-	/*color: #fff;
-	background: linear-gradient(to left, #222222 0%,#000000 100%);*/
-	color: #fff;
-	background-color: #080808;
-}
+position: relative;
+background-color: black;
+margin: 0px;
+padding: 17px;
+*/
