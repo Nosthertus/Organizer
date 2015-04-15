@@ -1,6 +1,6 @@
 <?php /* @var $this Controller */ ?>
 <?php $this->beginContent('//layouts/main'); ?>
-<div class="col-md-1 vertical-options navbar-inverse">
+<div class="col-md-1 navbar-inverse" id="sidebar">
 	<?php
 		$this->widget('zii.widgets.CMenu', array(
 			'items'=>$this->menu,

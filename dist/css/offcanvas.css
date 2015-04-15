@@ -5,6 +5,7 @@
  html,
  body {
 	overflow-x: hidden; /* Prevent scroll on narrow devices */
+	height: 100%;
 }
 body {
 	padding-top: 70px;
@@ -65,6 +66,36 @@ div.box
 	border-width: 2px;
 	margin-bottom: 8px;
 }
+#sidebar
+{
+	background-color: #222222;
+	margin-top: -18px;
+	padding: 0px;
+}
+
+#sidebar ul li a:hover
+{
+	background-color: black;
+}
+
+#sidebar ul li a:focus
+{
+	background-color: black;
+}
+
+#sidebar ul li a
+{
+	color: #FFF;
+	border-bottom: 1px solid;
+	border-color: #000;
+}
+
+#sidebar ul li ul
+{
+	display: none;
+	padding-left: 20px;
+}
+
 #module
 {
 	margin-top: -20px;

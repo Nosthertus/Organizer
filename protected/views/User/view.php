@@ -1,32 +1,33 @@
-<?php Yii::app()->getClientScript()->registerScriptFile(Yii::app()->request->baseUrl.'/js/Options.js'); ?>
+<?php
+Yii::app()->getClientScript()->registerScriptFile(Yii::app()->request->baseUrl.'/js/Options.js');
 
-<?php 
-	$this->menu = array(
-		array('label'=>'Email', 'url'=>'#', 'linkOptions'=>array(
-			'ajax'=>array(
-				'type'=>'GET',
-				'url'=>'',
-				'update'=>'#option',
-				'data'=>array('Email'=>true)
-			)
-		)),
-		array('label'=>'Password', 'url'=>'#', 'linkOptions'=>array(
-			'ajax'=>array(
-				'type'=>'GET',
-				'url'=>'',
-				'update'=>'#option',
-				'data'=>array('Password'=>true)
-			)
-		)),
-		array('label'=>'Tags', 'url'=>'#', 'linkOptions'=>array(
-			'ajax'=>array(
-				'type'=>'GET',
-				'url'=>'',
-				'update'=>'#option',
-				'data'=>array('Tags'=>true)
-			)
-		)),
-	);
+$menu = array(
+	array('label'=>'Email', 'url'=>'#', 'linkOptions'=>array(
+		'ajax'=>array(
+			'type'=>'GET',
+			'url'=>'',
+			'update'=>'#option',
+			'data'=>array('Email'=>true)
+		)
+	)),
+	array('label'=>'Password', 'url'=>'#', 'linkOptions'=>array(
+		'ajax'=>array(
+			'type'=>'GET',
+			'url'=>'',
+			'update'=>'#option',
+			'data'=>array('Password'=>true)
+		)
+	)),
+	array('label'=>'Tags', 'url'=>'#', 'linkOptions'=>array(
+		'ajax'=>array(
+			'type'=>'GET',
+			'url'=>'',
+			'update'=>'#option',
+			'data'=>array('Tags'=>true)
+		)
+	)),
+);
+$this->menu = $menu;
 ?>
 
 <?php echo CHtml::image(YiiIdenticon::getImageDataUri($model->id), $model->username); ?>
