@@ -8,7 +8,8 @@ $menu = array(
 			'url'=>'',
 			'update'=>'#option',
 			'data'=>array('Email'=>true)
-		)
+		),
+		'class'=>'category'
 	)),
 	array('label'=>'Password', 'url'=>'#', 'linkOptions'=>array(
 		'ajax'=>array(
@@ -16,7 +17,8 @@ $menu = array(
 			'url'=>'',
 			'update'=>'#option',
 			'data'=>array('Password'=>true)
-		)
+		),
+		'class'=>'category'
 	)),
 	array('label'=>'Tags', 'url'=>'#', 'linkOptions'=>array(
 		'ajax'=>array(
@@ -24,10 +26,11 @@ $menu = array(
 			'url'=>'',
 			'update'=>'#option',
 			'data'=>array('Tags'=>true)
-		)
+		),
+		'class'=>'category'
 	)),
 );
-$this->menu = $menu;
+$this->menu = $this->adminOptions($menu);
 ?>
 
 <?php echo CHtml::image(YiiIdenticon::getImageDataUri($model->id), $model->username); ?>

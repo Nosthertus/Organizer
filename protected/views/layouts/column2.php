@@ -7,7 +7,7 @@
 			<?php echo $content; ?>
 		</div><!-- content -->
 	</div>
-	<div id="sidebar" class="col-xs-6 col-md-3 sidebar-offcanvas" role="navigation">
+	<div class="col-xs-6 col-md-3 sidebar-offcanvas" role="navigation">
 		<div class="list-group">
 		<?php
 			// $this->beginWidget('zii.widgets.CPortlet', array(

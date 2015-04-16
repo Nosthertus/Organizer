@@ -174,4 +174,26 @@ class Controller extends CController
 
 		mail($mail, $subject, $message, $headers);
 	}
+
+	// Create admin options array for nav menu
+	public function adminOptions($merge = null)
+	{
+		$array = array(
+			'label'=>'Admin', 
+			'url'=>'javascript:void(0)',
+			'submenuOptions'=>array('class'=>'nav nav-stacked'),
+			'linkOptions'=>array('class'=>'category'),
+			'items'=>array(
+				array('label'=>'Role',
+					'url'=>'javascript:void(0)',
+				)
+			)
+		);
+		
+		if(!$merge)
+			return $array;
+
+		else
+			return array_merge($merge, array($array));
+	}
 }

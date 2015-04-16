@@ -19,4 +19,11 @@ $(document).ready(function()
 
 		$('#sidebar').height(bodyHeight - navbarHeight  + 70 - 1);
 	}
+
+	$('.category').click(function()
+	{
+		var list = $(this).parent().find('ul');
+
+		list.toggle(200);
+	});
 });
