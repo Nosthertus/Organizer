@@ -1,5 +1,7 @@
 <?php
 Yii::app()->getClientScript()->registerScriptFile(Yii::app()->request->baseUrl.'/js/Options.js');
+Yii::app()->getClientScript()->registerScriptFile(Yii::app()->request->baseUrl.'/js/jquery.serializejson.min.js');
+Yii::app()->getClientScript()->registerScriptFile(Yii::app()->request->baseUrl.'/js/JQuery-ui.js');
 
 $menu = array(
 	array('label'=>'Email', 'url'=>'#', 'linkOptions'=>array(

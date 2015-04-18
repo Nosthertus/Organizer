@@ -143,7 +143,17 @@ class User extends CActiveRecord
 
 			return $emails;
 		}
+	}
 
+	// Get all Users but me
+	public function findRest()
+	{
+		$criteria = new CDbCriteria(array(
+			'condition'=>'id!=:i',
+			'params'=>array('i'=>Yii::app()->user->getId())
+		));
+
+		return $this->findAll($criteria);
 	}
 
 	/**

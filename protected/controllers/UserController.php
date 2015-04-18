@@ -81,6 +81,9 @@ class UserController extends Controller
 		if(isset($_GET['admin']))
 			$this->adminOption($_GET['admin']);
 
+		if(isset($_GET['term']))
+			$this->getUsersData($_GET['term']);
+
 		$model = $this->loadModel($id);
 
 		$this->layout = '//layouts/column3';
@@ -90,11 +93,60 @@ class UserController extends Controller
 		));
 	}
 
+	private function getUsersData($search = null)
+	{
+		if($search)
+		{
+			$criteria = new CDbCriteria(array(
+				'condition'=>'username LIKE "%'.$search.'%" AND id!=:i',
+				'params'=>array('i'=>Yii::app()->user->getId())
+			));
+
+			$data = User::model()->findAll($criteria);
+
+			$summary = array();
+
+			foreach($data as $dat)
+			{
+				// $summary[] = array(
+				// 	'name'=>$dat->username,
+				// 	'id'=>$dat->id
+				// );
+
+				$summary[] = $dat->username;
+			}
+
+			echo CJSON::encode($summary);
+
+			Yii::app()->end();
+		}
+	}
+
 	private function adminOption($action)
 	{
 		if(isset($action['role']))
 		{
-			$this->renderPartial('admin/role');
+			$role = Yii::app()->authManager;
+
+			if(isset($action['role']['data']))
+			{
+				$data = $action['role']['data'];
+
+				if($role->createRole($data['name'], $data['description']))
+					echo json_encode(array('valid'=>true));
+
+
+				else
+					echo json_encode(array('valid'=>false));
+
+				Yii::app()->end();
+			}
+
+			$dataProvider = new CActiveDataProvider('Authitem');
+
+			$this->renderPartial('admin/role', array(
+				'dataProvider'=>$dataProvider,
+			));
 		}
 
 		Yii::app()->end();
