@@ -78,6 +78,9 @@ class UserController extends Controller
 			Yii::app()->end();
 		}
 
+		if(isset($_GET['admin']))
+			$this->adminOption($_GET['admin']);
+
 		$model = $this->loadModel($id);
 
 		$this->layout = '//layouts/column3';
@@ -85,6 +88,16 @@ class UserController extends Controller
 		$this->render('view', array(
 			'model'=>$model,
 		));
+	}
+
+	private function adminOption($action)
+	{
+		if(isset($action['role']))
+		{
+			$this->renderPartial('admin/role');
+		}
+
+		Yii::app()->end();
 	}
 
 	private function loadModel($id)

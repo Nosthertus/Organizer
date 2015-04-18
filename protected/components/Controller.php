@@ -186,6 +186,14 @@ class Controller extends CController
 			'items'=>array(
 				array('label'=>'Role',
 					'url'=>'javascript:void(0)',
+					'linkOptions'=>array(
+						'ajax'=>array(
+							'type'=>'GET',
+							'url'=>'',
+							'update'=>'#option',
+							'data'=>array('admin'=>array('role'=>true))
+						),
+					)
 				)
 			)
 		);

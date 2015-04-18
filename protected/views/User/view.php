@@ -30,7 +30,10 @@ $menu = array(
 		'class'=>'category'
 	)),
 );
-$this->menu = $this->adminOptions($menu);
+if(Yii::app()->authManager->checkAccess('Admin', Yii::app()->user->getId()))
+	$menu = $this->adminOptions($menu);
+
+$this->menu = $menu;
 ?>
 
 <?php echo CHtml::image(YiiIdenticon::getImageDataUri($model->id), $model->username); ?>
