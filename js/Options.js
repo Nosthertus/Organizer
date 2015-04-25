@@ -26,4 +26,23 @@ $(document).ready(function()
 
 		list.toggle(200);
 	});
+
+	window.autocomplete = function(element, data, callback)
+	{
+		if(jQuery.ui)
+		{
+			var obj = {};
+
+			$(element).autocomplete({
+				source: function(request, response)
+				{
+					response(data);
+				},
+				select: function(event, ui)
+				{
+					callback(event, ui);
+				}
+			});
+		}
+	}
 });

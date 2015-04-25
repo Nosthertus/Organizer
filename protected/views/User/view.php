@@ -1,7 +1,13 @@
 <?php
 Yii::app()->getClientScript()->registerScriptFile(Yii::app()->request->baseUrl.'/js/Options.js');
 Yii::app()->getClientScript()->registerScriptFile(Yii::app()->request->baseUrl.'/js/jquery.serializejson.min.js');
-Yii::app()->getClientScript()->registerScriptFile(Yii::app()->request->baseUrl.'/js/JQuery-ui.js');
+
+if(Yii::app()->authManager->checkAccess('Admin', Yii::app()->user->getId()))
+{
+	Yii::app()->getClientScript()->registerScriptFile(Yii::app()->request->baseUrl.'/js/JQuery-ui.js');
+	Yii::app()->getClientScript()->registerScriptFile(Yii::app()->request->baseUrl.'/js/tagCreator.js');
+	Yii::app()->getClientScript()->registerCssFile(Yii::app()->request->baseUrl.'/dist/css/jquery-ui.css');
+}
 
 $menu = array(
 	array('label'=>'Email', 'url'=>'#', 'linkOptions'=>array(

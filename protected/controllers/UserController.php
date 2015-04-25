@@ -81,8 +81,7 @@ class UserController extends Controller
 		if(isset($_GET['admin']))
 			$this->adminOption($_GET['admin']);
 
-		if(isset($_GET['term']))
-			$this->getUsersData($_GET['term']);
+		
 
 		$model = $this->loadModel($id);
 
@@ -108,12 +107,12 @@ class UserController extends Controller
 
 			foreach($data as $dat)
 			{
-				// $summary[] = array(
-				// 	'name'=>$dat->username,
-				// 	'id'=>$dat->id
-				// );
+				$summary[] = array(
+					'value'=>$dat->username,
+					'id'=>$dat->id
+				);
 
-				$summary[] = $dat->username;
+				// $summary[] = $dat->username;
 			}
 
 			echo CJSON::encode($summary);
@@ -141,6 +140,9 @@ class UserController extends Controller
 
 				Yii::app()->end();
 			}
+
+			if(isset($action['role']['searchUser']))
+				$this->getUsersData($action['role']['searchUser']);
 
 			$dataProvider = new CActiveDataProvider('Authitem');
 

@@ -8,6 +8,7 @@
 	}
 ?>
 
+
 <h1>Role</h1>
 <br>
 
@@ -119,7 +120,36 @@
 
 	$('#userName').unbind('keyup').keyup(function(e)
 	{
-		console.trace();
+		var element = this;
+		clearTimeout(ajax);
+		var ajax = setTimeout(function()
+		{
+			$.ajax({
+				url: '<?php $this->createUrl("user/view", array("id"=>Yii::app()->user->getId())); ?>',
+				type: 'GET',
+				data: {
+					admin: {
+						role: {
+							searchUser: $(element).val()
+						}
+					}
+				},
+				dataType: 'JSON',
+				success: function(data)
+				{
+					autocomplete(element, data, function(event, ui)
+					{
+						console.log(ui);
+
+						// TODO: Create list for each selected criteria
+					});
+				},
+				error: function(error)
+				{
+					console.log("Errossr");
+				}
+			});
+		}, 650);
 	});
 
 	function showResult(message)
@@ -134,10 +164,5 @@
 		{
 			result.toggle(100);
 		}, delay * 1000);
-	}
-
-	function newUserRole(ui)
-	{
-		console.log(ui);
 	}
 </script>

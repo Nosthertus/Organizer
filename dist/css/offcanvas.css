@@ -66,6 +66,11 @@ div.box
 	border-width: 2px;
 	margin-bottom: 8px;
 }
+.nav-tabs
+{
+	margin-bottom: 10px;
+}
+
 #sidebar
 {
 	background-color: #222222;
