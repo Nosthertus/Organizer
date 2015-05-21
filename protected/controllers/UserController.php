@@ -97,8 +97,7 @@ class UserController extends Controller
 		if($search)
 		{
 			$criteria = new CDbCriteria(array(
-				'condition'=>'username LIKE "%'.$search.'%" AND id!=:i',
-				'params'=>array('i'=>Yii::app()->user->getId())
+				'condition'=>'username LIKE "%'.$search.'%"'
 			));
 
 			$data = User::model()->findAll($criteria);
@@ -141,6 +140,13 @@ class UserController extends Controller
 				Yii::app()->end();
 			}
 
+			if(isset($action['role']['assign']))
+			{
+				echo json_encode($action['role']['assign']);
+
+				Yii::app()->end();
+			}
+
 			if(isset($action['role']['searchUser']))
 				$this->getUsersData($action['role']['searchUser']);
 
@@ -162,6 +168,13 @@ class UserController extends Controller
 			throw new CHttpException(404, 'the requested page does not exist.');
 
 		return $model;
+	}
+
+	public function actionTest()
+	{
+		$test = array(
+			'status'=>'OK',
+		);
 	}
 
 }

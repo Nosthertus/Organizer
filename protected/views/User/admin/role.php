@@ -20,6 +20,7 @@
 
 <div class="container">
 	<div class="tab-content">
+		<!-- Role list -->
 		<div class="tab-pane fade in active" id="list">
 			<?php
 			$this->widget('zii.widgets.grid.CGridView', array(
@@ -33,6 +34,9 @@
 			));
 			?>
 		</div>
+		<!-- ./Role list -->
+
+		<!-- Role form -->
 		<div class="tab-pane fade" id="create">
 			<?php echo CHtml::beginForm('', '', array(
 				'id'=>'roleForm'
@@ -55,6 +59,9 @@
 
 			<?php echo CHtml::endForm(); ?>
 		</div>
+		<!-- ./Role form -->
+
+		<!-- Role assign -->
 		<div class="tab-pane fade" id="assign">
 			<?php echo CHtml::beginForm('', '', array(
 				'id'=>'roleAssign'
@@ -64,7 +71,10 @@
 				<div class="form-group">
 					<?php echo CHtml::label('User', '', array('class'=>'control-label')); ?>
 					<?php echo CHtml::textField('userName', '', array('class'=>'form-control', 'id'=>'userName')); ?>
-					
+				</div>
+
+				<div class="form-group">
+					<ul id="userList"></ul>
 				</div>
 			</div>
 
@@ -73,10 +83,15 @@
 					<?php echo CHtml::label('Role', '', array('class'=>'control-label')); ?>
 					<?php echo CHtml::dropDownList('roleAssigname', '', $roles, array('class'=>'form-control')); ?>
 				</div>
+
+				<div class="form-group">
+					<input class="btn btn-default" type="submit" value="Submit"></input>
+				</div>
 			</div>
 
 			<?php echo CHTml::endForm(); ?>
 		</div>
+		<!-- ./Role assign -->
 	</div>
 </div>
 
@@ -118,6 +133,44 @@
 		return false;
 	});
 
+	// Remove user on list to assign for a role
+	$('#userList').on('click', 'li span.glyphicon-remove', function(e)
+	{
+		console.log($(this).parent().remove());
+	});
+
+	// Submit the users to assign a role
+	$('#roleAssign').submit(function()
+	{
+		var idlist = getAssignedIds(),
+			role = $('#roleAssigname').val();
+
+		$.ajax({
+			url: '<?php $this->createUrl("user/view", array("id"=>Yii::app()->user->getId())); ?>',
+			type: 'GET',
+			data: {
+				admin: {
+					role: {
+						assign: {
+							users: userList,
+						}
+					}
+				}
+			},
+			dataType: 'JSON',
+			success: function(data)
+			{
+				console.log(data);
+			},
+			error: function(error)
+			{
+				console.log('Error assign');
+			}
+		});
+
+		return false;
+	});
+
 	$('#userName').unbind('keyup').keyup(function(e)
 	{
 		var element = this;
@@ -141,7 +194,24 @@
 					{
 						console.log(ui);
 
-						// TODO: Create list for each selected criteria
+						setTimeout(function()
+						{
+							$(element).val('');
+
+							if(!isListed('#userList', ui.item.id))
+							{
+								$('#userList').tagCreator({
+									li: {
+										'data-id': ui.item.id,
+										content: ui.item.value + $.tagCreator({
+											span: {
+												class: 'glyphicon glyphicon-remove pull-right'
+											}
+									 	})
+									}
+								});
+							}
+						}, 10);
 					});
 				},
 				error: function(error)
@@ -151,6 +221,16 @@
 			});
 		}, 650);
 	});
+
+	function isListed(list, data)
+	{
+		var found = $(list).children('li[data-id="' + data + '"]');
+
+		if(found.length > 0)
+			return true;
+
+		return false;
+	}
 
 	function showResult(message)
 	{
@@ -164,5 +244,16 @@
 		{
 			result.toggle(100);
 		}, delay * 1000);
+	}
+
+	function getAssignedIds()
+	{
+		var summ = [];
+		$('#userList > li').each(function(index)
+		{
+			summ.push($(this).data('id'));
+		});
+
+		return summ;
 	}
 </script>
