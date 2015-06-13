@@ -104,6 +104,34 @@ class Project extends CActiveRecord
 		));
 	}
 
+	protected function afterFind()
+	{
+		if($this->Creator == 0)
+			$this->Creator = 'unknown';
+	}
+
+	public function findAllApi()
+	{
+		$model = $this->findAll();
+
+		$summary = array();
+
+		foreach($model as $data)
+		{
+			// Set unknown for all projects which creator's id is 0
+			if($data->Creator == 0)
+				$data->Creator = 'unknown';
+
+			// if creator's id is not 0 then replace id with the proper name
+			else
+				$data->Creator = $data->user->username;
+
+			$summary[] = $data->attributes;
+		}
+	
+		return $summary;
+	}
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

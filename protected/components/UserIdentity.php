@@ -22,14 +22,12 @@ class UserIdentity extends CUserIdentity
 
 		if($user===null)
 		{
-			// $this->errorCode=self::ERROR_USERNAME_INVALID;
-			echo "username invalid";
+			$this->errorCode=self::ERROR_USERNAME_INVALID;
 		}
 
 		else if(!$user->validatePassword($this->password))
 		{
-			// $this->errorCode=self::ERROR_PASSWORD_INVALID;
-			echo "password invalid";
+			$this->errorCode=self::ERROR_PASSWORD_INVALID;
 		}
 
 		else
