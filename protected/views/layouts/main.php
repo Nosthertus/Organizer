@@ -1,102 +1,51 @@
-<?php /* @var $this Controller */ ?>
 <?php 
-if(!Yii::app()->user->isGuest)
-	$image = CHtml::image(YiiIdenticon::getImageDataUri(Yii::app()->user->getId(), '20'));
-
-else
-	$image = '';
+	// Define application variable
+	$app = Yii::app();
 ?>
-<!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="language" content="en" />
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-	<!-- blueprint CSS framework -->
-	<!--[if lt IE 8]>
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css" media="screen, projection" />
-	<![endif]-->
-
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/dist/css/bootstrap.min.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/dist/css/offcanvas.css" />
-	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/JQuery.js"></script>
-
-	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+	<link rel="stylesheet" href="<?php echo $app->request->baseUrl.'/dist/css/angular-material.min.css';?>">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
 </head>
-<body>
-
-	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="<?php echo Yii::app()->baseUrl;?>"><?php echo CHtml::encode(Yii::app()->name); ?></a>
+<body ng-app="Organizer" ng-controller="site as main">
+	<div layout="column">
+		<md-toolbar>
+			<div class="md-toolbar-tools">
+				<span><?php echo $app->name; ?></span>
+				<!-- fill up the space between left and right area -->
+				<span flex></span>
+				
+				<!-- Menu Button -->
+				<!-- <md-menu>
+					<md-button class="md-icon-button" aria-label ng-click="$mdOpenMenu()">
+						<md-icon md-menu-origin md-svg-icon="<?php echo $app->request->baseUrl.'/dist/icons/menu.svg';?>" alt="Menu"></md-icon>
+					</md-button>
+					<md-menu-content>
+						<md-menu-item ng-repeat="item in main.menu"	>
+							<md-button>{{item}}</md-button>
+						</md-menu-item>
+					</md-menu-content>
+				</md-menu> -->
+				<md-select ng-model="main.select" placeholder="Menu">
+					<md-option ng-repeat="item in main.menu" ng-value="item">{{item}}</md-option>
+				</md-select>
+				<!-- /.Menu Button -->
 			</div>
-			<div class="collapse navbar-collapse">
-				<?php
-				$this->widget('zii.widgets.CMenu', array(
-					'htmlOptions'=>array('class'=>'nav navbar-nav'),
-					'items'=>array(
-						array('label'=>'Contact', 'url'=>array('/site/contact')),
-						array('label'=>'Tags', 'url'=>array('/tags/index')),
-						array('label'=>'Chat', 'url'=>'#', 'linkOptions'=>array('onClick'=>'Popup();'), 'visible'=>!Yii::app()->user->isGuest),
-					)
-				));
-
-
-				$this->widget('zii.widgets.CMenu', array(
-					'htmlOptions'=>array(
-						'class'=>'nav navbar-nav navbar-right',
-						),
-					'encodeLabel'=>false,
-					'items'=>array(
-						array('label'=>'Login', 'url'=>array('site/login'), 'visible'=>Yii::app()->user->isGuest),
-						array('label'=>$image.' '.Yii::app()->user->name.' <span class="caret"></span>', 'url'=>'#', 'visible'=>!Yii::app()->user->isGuest,
-							'itemOptions'=>array('class'=>'dropdown'),
-							'submenuOptions'=>array('class'=>'dropdown-menu'),
-							'linkOptions'=>array('class'=>'dropdown-toggle', 'data-toggle'=>'dropdown'), 
-							'items'=>array(
-								array('label'=>'Options', 'url'=>array('/user/view', 'id'=>Yii::app()->user->getId())),
-								array('label'=>'Logout', 'url'=>array('/site/logout'))
-							)
-						)
-					)
-				));
-				?>
-			</div><!--/.nav-collapse -->
-		</div>
+		</md-toolbar>
+		<md-content layout-padding ng-include="'site/login'">
+			<!-- <md-button ng-click="main.dialog()">Test</md-button> -->
+		</md-content>
 	</div>
-		
-	<?php echo $content; ?>
+	<!-- Angular Material Dependencies -->
+	<script src="<?php echo $app->request->baseUrl.'/dist/js/angular.min.js';?>"></script>
+	<script src="<?php echo $app->request->baseUrl.'/dist/js/angular-animate.min.js';?>"></script>
+	<script src="<?php echo $app->request->baseUrl.'/dist/js/angular-aria.min.js';?>"></script>
+	<script src="<?php echo $app->request->baseUrl.'/dist/js/angular-material.min.js';?>"></script>
 
-
-	<div class="clear"></div>
-
-	<!-- Bootstrap core JavaScript
-	================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/offcanvas.js"></script>
-	<script src="<?php echo Yii::app()->request->baseUrl; ?>/dist/js/bootstrap.min.js"></script>
-	<script type="text/javascript">
-	function Popup()
-	{
-		var winHeight = 2000,
-			winWidth = 2000,
-			winPosX = 10,
-			winPosY = 10;
-
-		newwind = window.open("<?php echo Yii::app()->request->baseUrl; ?>/site/chat","NewPop",
-			'fullscreen=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=no');
-
-		newwind;
-
-	}
-	</script>
+	<!-- Angular app -->
+	<script src="<?php echo $app->request->baseUrl.'/dist/js/angular/app.js';?>"></script>
+	<script src="<?php echo $app->request->baseUrl.'/dist/js/angular/controllers/siteController.js';?>"></script>
+	<script src="<?php echo $app->request->baseUrl.'/dist/js/angular/controllers/loginController.js';?>"></script>
+	
 </body>
 </html>

@@ -30,28 +30,7 @@ class SiteController extends Controller
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
 		
-		// dataProvider on Projects
-		$dataProvider = new CActiveDataProvider('Project');
-
-		if(isset($_POST['type_id']))
-		{
-			if($_POST['type_id'] != 0)
-			{
-				$dataProvider->setCriteria(array(
-					'condition'=>'projectType_id=:id',
-					'params'=>array('id'=>$_POST['type_id'])
-				));
-			}
-
-			$this->renderPartial('index', array('dataProvider'=>$dataProvider));
-			yii::app()->end();
-		}
-
-
-		// Set Layout
-		$this->layout = 'column2';
-
-		$this->render('index', array('dataProvider'=>$dataProvider));
+		$this->render('index');
 	}
 
 	/**
@@ -117,7 +96,7 @@ class SiteController extends Controller
 				$this->redirect(Yii::app()->user->returnUrl);
 		}
 		// display the login form
-		$this->render('login',array('model'=>$model));
+		$this->renderPartial('login',array('model'=>$model));
 	}
 
 	/**
