@@ -2,33 +2,17 @@
 {
 	var app = angular.module('Organizer');
 	
-	app.controller('site', function($mdDialog, $http, $scope)
+	app.controller('site', function($mdDialog, $scope)
 	{
 		this.menu = ['test1', 'test2'];
 
-		this.dialog = function()
-		{
-			$http.get('site/login')
-				.success(function(data){
-					login = data;
-				})
-				.error(function(data){
-					login = data;
-				});
+		$mdDialog.show({
+			templateUrl: 'site/login',
+		});
 
-			$mdDialog.show({
-				template: login
-			});
-		};
-
-		$scope.login = function()
+		$scope.$on('closeDialog', function(event)
 		{
-			console.log('this is login');
-		};
-
-		this.test = function()
-		{
-			console.log('asd');
-		}
+			$mdDialog.cancel();
+		});
 	});
 })(angular);

@@ -5,6 +5,7 @@
 <html lang="en">
 <head>
 	<link rel="stylesheet" href="<?php echo $app->request->baseUrl.'/dist/css/angular-material.min.css';?>">
+	<link rel="stylesheet" href="<?php echo $app->request->baseUrl.'/dist/css/flaticon.css';?>">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
 </head>
 <body ng-app="Organizer" ng-controller="site as main">
@@ -32,8 +33,7 @@
 				<!-- /.Menu Button -->
 			</div>
 		</md-toolbar>
-		<md-content layout-padding ng-include="'site/login'">
-			<!-- <md-button ng-click="main.dialog()">Test</md-button> -->
+		<md-content layout-padding>
 		</md-content>
 	</div>
 	<!-- Angular Material Dependencies -->

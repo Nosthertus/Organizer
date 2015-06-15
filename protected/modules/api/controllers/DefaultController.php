@@ -30,7 +30,7 @@ class DefaultController extends Controller
 			if(!$model->validate())
 			{
 				$summary['login'] = false;
-				$summary['message'] = 'Error login';
+				$summary['message'] = 'Username or password is not valid';
 			}
 		}
 
