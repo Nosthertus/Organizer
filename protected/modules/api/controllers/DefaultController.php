@@ -12,36 +12,27 @@ class DefaultController extends Controller
 	{
 		$model = new LoginForm;
 
-		if(isset($_POST['username']) && isset($_POST['password']))
-		{
-			$model->attributes = $_POST;
-			
-			$status = array(
-				'login'=>null,
-				'message'=>''
-			);
-
-			if($model->validate())
-			{
-				$status['login'] = true;
-				$status['message'] = 'Login success';
-			}
-
-			if(!$model->validate())
-			{
-				$status['login'] = false;
-				$status['message'] = 'Error login';
-			}
-
-			echo CJSON::encode($status);
-
-			Yii::app()->end();
-		}
-
 		$summary = array(
 			'Login'=>false,
 			'message'=>'Supplied data is empty',
 		);
+
+		if(isset($_POST['username']) && isset($_POST['password']))
+		{
+			$model->attributes = $_POST;
+
+			if($model->validate())
+			{
+				$summary['login'] = true;
+				$summary['message'] = 'Login success';
+			}
+
+			if(!$model->validate())
+			{
+				$summary['login'] = false;
+				$summary['message'] = 'Error login';
+			}
+		}
 
 		if(defined('YII_DEBUG'))
 		{

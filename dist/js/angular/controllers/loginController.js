@@ -2,13 +2,31 @@
 {
 	var app = angular.module('Organizer');
 
-	app.controller('login', function()
+	app.controller('login', function($http)
 	{
-		this.processing = false;
+		var scope = this;
+		scope.processing = false;
 
-		this.submit = function()
+		scope.submit = function()
 		{
-			this.processing = true;
-		};
+			scope.processing = true;
+
+			var post = {
+				username: scope.username,
+				password: scope.password
+			};
+
+			$http.post('api/default/login', post).
+				success(function(data, status)
+				{
+					console.log(data);
+					scope.processing = false;
+				}).
+				error(function(data, status)
+				{
+					console.log('error', data);
+					scope.processing = false;
+				});
+		}
 	});
 })(angular);
