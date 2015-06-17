@@ -27,6 +27,7 @@ return array(
 		// 	// If removed, Gii defaults to localhost only. Edit carefully to taste.
 		// 	'ipFilters'=>array('127.0.0.1','::1', '192.168.0', '192.168.1'),
 		// ),
+		'api'
 	),
 
 	// application components
@@ -45,6 +46,7 @@ return array(
 			'showScriptName'=>false,
 			'urlSuffix'=>'.php',
 			'rules'=>array(
+				'<module:\w+>/<controller:\w+>/<id:\d+>'=>'<module>/<controller>/view',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',

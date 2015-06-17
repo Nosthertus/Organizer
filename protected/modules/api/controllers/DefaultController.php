@@ -53,4 +53,24 @@ class DefaultController extends Controller
 
 		echo CJSON::encode($summary);
 	}
+
+	public function actionLogout()
+	{
+		$result = array(
+			'result'=>null
+		);
+
+		// Check if the user is already logged in
+		if(!Yii::app()->user->isGuest)
+		{
+			Yii::app()->user->logout();
+
+			$result['result'] = true;
+		}
+
+		else
+			$result['result'] = false;
+
+		echo CJSON::encode($result);
+	}
 }
