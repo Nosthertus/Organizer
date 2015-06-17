@@ -59,12 +59,7 @@ class User extends CActiveRecord
 			'id' => 'Id',
 			'username' => 'Username',
 			'password' => 'Password',
-			'email' => 'Email',
-			'emailNotification' => 'Email Notification',
-			'ProjectNotification' => 'Project Notification',
-			'NewTaskNotification' => 'New Task Notification',
-			'UpdatedTaskNotification' => 'Updated Task Notification',
-			'CommentedTaskNotification' => 'Commented Task Notification',
+			'email' => 'Email'
 		);
 	}
 
@@ -95,55 +90,47 @@ class User extends CActiveRecord
 		return $user;
 	}
 
-	public function ListNotification($id)
+	/**
+	*	Find all records
+	*	@return $attributes {array}
+	*/
+	public function findAllApi()
 	{
-		$list = array();
+		$model = $this->findAll();
 
-		$user = $this->findByPk($id);
+		$summary = array();
 
-		if($user->ProjectNotification == '1')
-			$list[] = 0;
-
-		if($user->NewTaskNotification == '1')
-			$list[] = 1;
-
-		if($user->UpdatedTaskNotification == '1')
-			$list[] = 2;
-
-		if($user->CommentedTaskNotification == '1')
-			$list[] = 3;
-
-		return $list;
+		foreach($model as $data)
+		{
+			$attributes = $data->attributes;
+			// delete password
+			unset($attributes['password']);
+			$summary[] = $attributes;
+		}
+	
+		return $summary;
 	}
 
-	//Check if user is able to recieve the especific notification.
-	public function getEmailNotification($user = array('id'=>null, 'Notification'))
+	/**
+	*	Find record
+	*	@param $id {int}
+	*	@return $attributes {array:null}
+	*/
+	public function findApi($id)
 	{
-		if(isset($user['id']))
+		// Check if the requested record exists
+		if($model = $this->findbyPk($id))
 		{
-			$userData = $this->findByPk($user['id']);
+			$attributes = $model->attributes;
 
-			if($userData['emailNotification'] == '1' && $userData[$user['Notification']] == '1')
-				return $userData->email;
-
-			else
-				return null;
+			// delete password
+			unset($attributes['password']);
+			
+			return $attributes;
 		}
-
-		else
-		{
-			$usersData = $this->findAll();
-
-			$emails = array();
-			foreach($usersData as $data)
-			{
-				if($data['emailNotification'] == '1' && $data[$user['Notification']] == '1')
-					$emails[] = $data->email;
-			}
-
-			return $emails;
-		}
-
+		
+		// if it doesn't exist then return null;
+		return null;
 	}
 
 	/**
