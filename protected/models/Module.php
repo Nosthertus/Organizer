@@ -65,6 +65,37 @@ class Module extends CActiveRecord
 	}
 
 	/**
+	*	Find all records
+	*	@return $attributes {array}
+	*/
+	public function findAllApi()
+	{
+		$model = $this->findAll();
+
+		$summary = array();
+
+		foreach($model as $data)
+			$summary[] = $data->attributes;
+	
+		return $summary;
+	}
+
+	/**
+	*	Find record
+	*	@param $id {int}
+	*	@return $attributes {array:null}
+	*/
+	public function findApi($id)
+	{
+		// Check if the requested record exists
+		if($model = $this->findbyPk($id))
+			return $model->attributes;
+		
+		// if it doesn't exist then return null;
+		return null;
+	}
+
+	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 *
 	 * Typical usecase:
