@@ -108,8 +108,15 @@ class Project extends CActiveRecord
 	{
 		if($this->Creator == 0)
 			$this->Creator = 'unknown';
+
+		else
+			$this->Creator = $this->user->username;
 	}
 
+	/**
+	*	Find all records
+	*	@return $attributes {array}
+	*/
 	public function findAllApi()
 	{
 		$model = $this->findAll();
@@ -117,19 +124,24 @@ class Project extends CActiveRecord
 		$summary = array();
 
 		foreach($model as $data)
-		{
-			// Set unknown for all projects which creator's id is 0
-			if($data->Creator == 0)
-				$data->Creator = 'unknown';
-
-			// if creator's id is not 0 then replace id with the proper name
-			else
-				$data->Creator = $data->user->username;
-
 			$summary[] = $data->attributes;
-		}
 	
 		return $summary;
+	}
+
+	/**
+	*	Find record
+	*	@param $id {int}
+	*	@return $attributes {array:null}
+	*/
+	public function findApi($id)
+	{
+		// Check if the requested record exists
+		if($model = $this->findbyPk($id))
+			return $model->attributes;
+		
+		// if it doesn't exist then return null;
+		return null;
 	}
 
 	/**
