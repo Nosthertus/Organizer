@@ -4,6 +4,7 @@
 ?>
 <html lang="en">
 <head>
+	<meta charset="utf-8">
 	<link rel="stylesheet" href="<?php echo $app->request->baseUrl.'/dist/css/angular-material.min.css';?>">
 	<link rel="stylesheet" href="<?php echo $app->request->baseUrl.'/dist/css/flaticon.css';?>">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
@@ -17,8 +18,8 @@
 				<span flex></span>
 				
 				<!-- Menu Button -->
-				<!-- <md-menu>
-					<md-button class="md-icon-button" aria-label ng-click="$mdOpenMenu()">
+				<md-menu>
+					<md-button class="md-icon-button" aria-label="Menu" ng-click="$mdOpenMenu()">
 						<md-icon md-menu-origin md-svg-icon="<?php echo $app->request->baseUrl.'/dist/icons/menu.svg';?>" alt="Menu"></md-icon>
 					</md-button>
 					<md-menu-content>
@@ -26,14 +27,14 @@
 							<md-button>{{item}}</md-button>
 						</md-menu-item>
 					</md-menu-content>
-				</md-menu> -->
-				<md-select ng-model="main.select" placeholder="Menu">
+				</md-menu>
+				<!-- <md-select ng-model="main.select" placeholder="Menu">
 					<md-option ng-repeat="item in main.menu" ng-value="item">{{item}}</md-option>
-				</md-select>
+				</md-select> -->
 				<!-- /.Menu Button -->
 			</div>
 		</md-toolbar>
-		<md-content layout-padding>
+		<md-content layout-padding ng-include="main.view">
 		</md-content>
 	</div>
 	<!-- Angular Material Dependencies -->
@@ -46,6 +47,6 @@
 	<script src="<?php echo $app->request->baseUrl.'/dist/js/angular/app.js';?>"></script>
 	<script src="<?php echo $app->request->baseUrl.'/dist/js/angular/controllers/siteController.js';?>"></script>
 	<script src="<?php echo $app->request->baseUrl.'/dist/js/angular/controllers/loginController.js';?>"></script>
-	
+	<script src="<?php echo $app->request->baseUrl.'/dist/js/angular/controllers/projectController.js';?>"></script>
 </body>
 </html>

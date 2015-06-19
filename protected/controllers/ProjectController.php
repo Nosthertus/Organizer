@@ -4,7 +4,7 @@ Class ProjectController extends Controller
 	public function filters()
 	{
 		return array(
-			'accessControl',
+			// 'accessControl',
 			'postOnly + delete, initiate'
 		);
 	}
@@ -20,6 +20,21 @@ Class ProjectController extends Controller
 				'users'=>array('*'),
 			),
 		);
+	}
+
+	public function actions()
+	{
+		return array(
+			'page'=>array(
+				'class'=>'CViewAction',
+				'layout'=>false
+			)
+		);
+	}
+
+	public function actionIndex()
+	{
+		$this->renderPartial('index');
 	}
 
 	public function actionCreate()

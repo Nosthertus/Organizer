@@ -25,6 +25,12 @@
 					// hide processing feedback and show the result
 					scope.processing = false;
 					scope.message = data.message;
+
+					if(data.login)
+					{
+						$rootScope.$broadcast('closeDialog');
+						$rootScope.$broadcast('changeView', 'project');
+					}
 				}).
 				error(function(data, status)
 				{
