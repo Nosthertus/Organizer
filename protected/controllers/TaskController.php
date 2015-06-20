@@ -4,7 +4,7 @@ Class TaskController extends Controller
 	public function filters()
 	{
 		return array(
-			'accessControl',
+			// 'accessControl',
 			'postOnly + delete'
 		);
 	}
@@ -37,11 +37,7 @@ Class TaskController extends Controller
 
 	public function actionIndex()
 	{
-		$dataProvider = new CActiveDataProvider('Task');
-
-		$this->layout = 'column2';
-
-		$this->render('Index', array('dataProvider'=>$dataProvider));
+		$this->renderPartial('Index');
 	}
 
 	public function actionView($id)

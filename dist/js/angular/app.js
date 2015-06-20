@@ -65,7 +65,11 @@
 				logged: false,
 				name: null,
 				id: null
-			}
+			},
+			project: null,
+			task: null
 		};
+
+		return global;
 	});
 })(angular);

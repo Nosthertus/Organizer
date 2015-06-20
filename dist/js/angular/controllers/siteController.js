@@ -26,7 +26,6 @@
 				throw new Error('view data is missing');
 
 			scope.view = view;
-			console.log(scope);
 		});
 	});
 })(angular);

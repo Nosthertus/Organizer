@@ -48,5 +48,6 @@
 	<script src="<?php echo $app->request->baseUrl.'/dist/js/angular/controllers/siteController.js';?>"></script>
 	<script src="<?php echo $app->request->baseUrl.'/dist/js/angular/controllers/loginController.js';?>"></script>
 	<script src="<?php echo $app->request->baseUrl.'/dist/js/angular/controllers/projectController.js';?>"></script>
+	<script src="<?php echo $app->request->baseUrl.'/dist/js/angular/controllers/taskController.js';?>"></script>
 </body>
 </html>
