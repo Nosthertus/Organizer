@@ -60,7 +60,7 @@ return array(
 			'connectionString' => 'mysql:host=localhost;dbname=organizer',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => '3141',
+			'password' => '1742',
 			'charset' => 'utf8',
 		),
 		'errorHandler'=>array(
