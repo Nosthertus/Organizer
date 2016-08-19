@@ -66,6 +66,11 @@ div.box
 	border-width: 2px;
 	margin-bottom: 8px;
 }
+.nav-tabs
+{
+	margin-bottom: 10px;
+}
+
 #sidebar
 {
 	background-color: #222222;
@@ -153,6 +158,18 @@ a.active
 {
 	background-color: #000000;
 	color: #ffffff;
+}
+ul#userList
+{
+	padding-left: -40px !important;
+}
+ul#userList > li
+{
+	list-style-type: none;
+}
+ul#userList > li > span
+{
+	cursor: pointer;
 }
 /*
 .menu

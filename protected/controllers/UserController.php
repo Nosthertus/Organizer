@@ -78,6 +78,11 @@ class UserController extends Controller
 			Yii::app()->end();
 		}
 
+		if(isset($_GET['admin']))
+			$this->adminOption($_GET['admin']);
+
+		
+
 		$model = $this->loadModel($id);
 
 		$this->layout = '//layouts/column3';
@@ -85,6 +90,74 @@ class UserController extends Controller
 		$this->render('view', array(
 			'model'=>$model,
 		));
+	}
+
+	private function getUsersData($search = null)
+	{
+		if($search)
+		{
+			$criteria = new CDbCriteria(array(
+				'condition'=>'username LIKE "%'.$search.'%"'
+			));
+
+			$data = User::model()->findAll($criteria);
+
+			$summary = array();
+
+			foreach($data as $dat)
+			{
+				$summary[] = array(
+					'value'=>$dat->username,
+					'id'=>$dat->id
+				);
+
+				// $summary[] = $dat->username;
+			}
+
+			echo CJSON::encode($summary);
+
+			Yii::app()->end();
+		}
+	}
+
+	private function adminOption($action)
+	{
+		if(isset($action['role']))
+		{
+			$role = Yii::app()->authManager;
+
+			if(isset($action['role']['data']))
+			{
+				$data = $action['role']['data'];
+
+				if($role->createRole($data['name'], $data['description']))
+					echo json_encode(array('valid'=>true));
+
+
+				else
+					echo json_encode(array('valid'=>false));
+
+				Yii::app()->end();
+			}
+
+			if(isset($action['role']['assign']))
+			{
+				echo json_encode($action['role']['assign']);
+
+				Yii::app()->end();
+			}
+
+			if(isset($action['role']['searchUser']))
+				$this->getUsersData($action['role']['searchUser']);
+
+			$dataProvider = new CActiveDataProvider('Authitem');
+
+			$this->renderPartial('admin/role', array(
+				'dataProvider'=>$dataProvider,
+			));
+		}
+
+		Yii::app()->end();
 	}
 
 	private function loadModel($id)
@@ -95,6 +168,13 @@ class UserController extends Controller
 			throw new CHttpException(404, 'the requested page does not exist.');
 
 		return $model;
+	}
+
+	public function actionTest()
+	{
+		$test = array(
+			'status'=>'OK',
+		);
 	}
 
 }

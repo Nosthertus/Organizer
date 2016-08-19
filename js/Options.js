@@ -19,4 +19,30 @@ $(document).ready(function()
 
 		$('#sidebar').height(bodyHeight - navbarHeight  + 70 - 1);
 	}
+
+	$('.category').click(function()
+	{
+		var list = $(this).parent().find('ul');
+
+		list.toggle(200);
+	});
+
+	window.autocomplete = function(element, data, callback)
+	{
+		if(jQuery.ui)
+		{
+			var obj = {};
+
+			$(element).autocomplete({
+				source: function(request, response)
+				{
+					response(data);
+				},
+				select: function(event, ui)
+				{
+					callback(event, ui);
+				}
+			});
+		}
+	}
 });
